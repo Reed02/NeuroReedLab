@@ -13,21 +13,58 @@
       background-color: #f5f8fa;
       color: #333;
     }
-    nav {
-      text-align: center;
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
       margin-bottom: 20px;
     }
-    nav a {
+
+    .navbar a {
       text-decoration: none;
       color: #0b3d91;
-      margin: 0 10px;
       font-weight: bold;
     }
+
+    /* DROPDOWN (for future use if needed) */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      min-width: 180px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 14px;
+      font-weight: normal;
+      color: #0b3d91;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f0f4f8;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
     header {
       text-align: center;
       margin-bottom: 40px;
       color: #0b3d91;
     }
+
     a.button {
       display: inline-block;
       background-color: #0b3d91;
@@ -38,13 +75,16 @@
       font-weight: bold;
       margin-top: 20px;
     }
+
     a.button:hover {
       background-color: #084a7a;
     }
+
     .social-links {
       margin-top: 30px;
       text-align: center;
     }
+
     .social-links a {
       margin: 0 15px;
       color: #0b3d91;
@@ -55,30 +95,35 @@
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">Home</a> |
-    <a href="about.html">About</a> |
-    <a href="projects.html">Projects</a> |
-    <a href="testimonials.html">Testimonials</a> |
-    <a href="leave_testimonial.html">Leave a Testimonial</a> |
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="testimonials.html">Testimonials</a>
+    <a href="leave_testimonial.html">Leave a Testimonial</a>
     <a href="contact.html">Contact</a>
   </nav>
 
+  <!-- HEADER -->
   <header>
     <h1>Get In Touch</h1>
     <p>If you’d like to collaborate, hire me, or just say hello, feel free to reach out!</p>
   </header>
 
+  <!-- EMAIL BUTTON -->
   <div style="text-align: center;">
-    <a href="r.ledoux.cooper@gmail.com" class="button">Email Me</a>
+    <a href="mailto:r.ledoux.cooper@gmail.com" class="button">Email Me</a>
   </div>
-<!--
+
+  <!-- SOCIAL LINKS (optional, uncomment if needed)
   <div class="social-links">
     <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a>
     <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     <a href="https://medium.com/@yourusername" target="_blank" rel="noopener noreferrer">Medium</a>
   </div>
--->
+  -->
+
 </body>
 </html>
+
