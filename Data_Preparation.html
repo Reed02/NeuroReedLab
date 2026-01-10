@@ -125,6 +125,70 @@
     TitanicDF["Embarked"] = TitanicDF["Embarked"].astype('category')
     print(TitanicDF.dtypes)
     </code></pre>
+
+    <pre><code>
+    ColumnNamesList = TitanicDF.columns.values
+    print(ColumnNamesList)
+
+    for name in ColumnNamesList:
+      print(name, ": ")
+      total_nas = TitanicDF[name].isna().sum()
+      print(total_nas)
+
+    print(TitanicDF.shape)
+    </code></pre>
+
+    <pre><code>
+    # Fill missing Embarked values with mode
+    print(TitanicDF.Embarked)
+    TheMode = stat.mode(TitanicDF.Embarked)
+    print(TheMode)
+    TitanicDF.Embarked.fillna(TheMode, inplace=True)
+    print(TitanicDF.isnull().sum())
+
+    #Drop rows with missing Age values
+    TitanicDF.dropna(inplace=True)
+    print(TitanicDF.isnull().sum())
+    </code></pre>
+
+    <pre><code>
+    print(TitanicDF.columns.values)
+    print(TitanicDF.describe())
+
+    plot1 = sns.boxplot(x="Age", data=TitanicDF)
+    plt.show()
+
+    plot2 = sns.swarmplot(x="Age", data=TitanicDF, color=".25")
+    plt.show()
+    </code></pre>
+
+    <pre><code>
+    TitanicDF = TitanicDF[TitanicDF.Age > 1]
+    print(TitanicDF.head(15))
+    print(TitanicDF.describe())
+    </code></pre>
+
+    <pre><code>
+    plot3 = sns.boxplot(x="Fare", data=TitanicDF)
+    plt.show()
+
+    print(TitanicDF[TitanicDF.Fare > 400].count())
+    TitanicDF = TitanicDF[TitanicDF.Fare < 400]
+    print(TitanicDF.describe())
+    </code></pre>
+
+    <pre><code>
+    print(TitanicDF.head(15))
+
+    sns.countplot(x="Survived", data=TitanicDF)
+    plt.show()
+
+    sns.countplot(x="Pclass", data=TitanicDF)
+    plt.show()
+
+    sns.countplot(x="Sex", data=TitanicDF)
+    plt.show()
+    </code></pre>
     
   </section>
 
