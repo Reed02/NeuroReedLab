@@ -62,7 +62,7 @@
 
 <body>
 
-  <h1>Data Preparation</h1>
+  <h1>Kaggle Titanic Training Dataset Preparation</h1>
 
   <!-- NOTES SECTION -->
   <section class="notes">
@@ -78,20 +78,24 @@
   <section class="code-section">
     <h2>Code</h2>
 
+    <p>
+      Before we can do anything, we have to import our libraries and our dataset. Then we have to make sure that it is read correctly.
+    </p>
     <pre><code>
-      import pandas as pd
-      import numpy as np
-      import statistics as stat
-      import seaborn as sns
-      import matplotlib.pyplot as plt
-      
+    import pandas as pd
+    import numpy as np
+    import statistics as stat
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+
+    filename = "Titanic_Kaggle_Train_Data.csv"
+    TitanicDF = pd.read_csv(filename)
+
+    print(TitanicDF.head())
+    print(TitanicDF.dtypes)
     </code></pre>
 
-    <pre><code>
-import numpy as np
 
-fft_vals = np.fft.rfft(raw.get_data()[0])
-    </code></pre>
   </section>
 
 </body>
