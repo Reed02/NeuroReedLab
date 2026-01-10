@@ -69,7 +69,7 @@
     <h2>Notes</h2>
 
     <p>
-      This section documents how to prepare and repurpose datasets in python for analysis.
+      This section documents how to prepare and repurpose the Kaggle Titanic Training Dataset in python for analysis.
     </p>
 
   </section>
@@ -79,12 +79,12 @@
     <h2>Code</h2>
 
     <pre><code>
-import mne
-
-raw = mne.io.read_raw_edf("subject01.edf", preload=True)
-raw.filter(1, 40)
-
-print(raw.info)
+      import pandas as pd
+      import numpy as np
+      import statistics as stat
+      import seaborn as sns
+      import matplotlib.pyplot as plt
+      
     </code></pre>
 
     <pre><code>
