@@ -79,7 +79,7 @@
     <h2>Code</h2>
 
     <p>
-      Before we can do anything, we have to import our libraries and our dataset. Then we have to make sure that it is read correctly.
+    Before we can do anything, we have to import our libraries and our dataset. Then we have to make sure that it is read correctly.
     </p>
     <pre><code>
     import pandas as pd
@@ -95,12 +95,21 @@
     print(TitanicDF.dtypes)
     </code></pre>
 
+
+    <p>
+    Next we look at columns that are not very useful. The Cabin Column has many missing values, and Ticket doesn't help us with anything. So we remove these.
+    </p>
+    
     <pre><code>
     drop_these = ["Cabin", "Ticket"]
     TitanicDF.drop(drop_these, inplace=True, axis=1)
     print(TitanicDF.head(15)
     </code></pre>
 
+    <p>
+    Some of our columns do not have the correct data type. As an example: PassengerID is just an ID, not a number we can do numerical stuff with. Some other columns are categories, not numbers, so we fix this.
+    </p>
+    
     <pre><code>
     # PassengerId should be string
     TitanicDF["PassengerId"] = TitanicDF["PassengerId"].astype(str)
