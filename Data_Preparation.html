@@ -95,7 +95,28 @@
     print(TitanicDF.dtypes)
     </code></pre>
 
+    <pre><code>
+    drop_these = ["Cabin", "Ticket"]
+    TitanicDF.drop(drop_these, inplace=True, axis=1)
+    print(TitanicDF.head(15)
+    </code></pre>
 
+    <pre><code>
+    # PassengerId should be string
+    TitanicDF["PassengerId"] = TitanicDF["PassengerId"].astype(str)
+    print(TitanicDF.dtypes)
+
+    # Survived should be categorical
+    TitanicDF["Survived"] = TitanicDF["Survived"].astype('category')
+    print(TitanicDF.dtypes)
+
+    # Convert other categorical variables
+    TitanicDF["Sex"] = TitanicDF["Sex"].astype('category')
+    TitanicDF["Pclass"] = TitanicDF["Pclass"].astype('category')
+    TitanicDF["Embarked"] = TitanicDF["Embarked"].astype('category')
+    print(TitanicDF.dtypes)
+    </code></pre>
+    
   </section>
 
 </body>
