@@ -114,7 +114,13 @@
     </code></pre>
 
     <p>
-    Some of our columns do not have the correct data type. As an example: PassengerID is just an ID, not a number we can do numerical stuff with. Some other columns are categories, not numbers, so we fix this.
+    Some of our columns do not have the correct data type.
+    Machine learning models and analysis work better when data types make sense.
+      <ul>
+        <li> IDs should not be numeric</li>
+        <li> Labels should be categorical</li>
+        <li> Categories should not be treated as numbers</li>
+      </ul>
     </p>
     
     <pre><code>
@@ -133,6 +139,17 @@
     print(TitanicDF.dtypes)
     </code></pre>
 
+
+    <p>
+    Here we check all columns to see how many missing values (NaN) they contain.
+    Missing values can break analysis or models, so its important to know:
+      <ul>
+        <li> Where they are </li>
+        <li> How many there are </li>
+        <li> Whether they are a problem or not </li>
+      </ul>
+    </p>
+    
     <pre><code>
     ColumnNamesList = TitanicDF.columns.values
     print(ColumnNamesList)
@@ -145,6 +162,13 @@
     print(TitanicDF.shape)
     </code></pre>
 
+    <p>
+    Next we fill missing Embarked values using the most common value (mode) and drop rows where Age was missing
+    We do this since Embarked has only a few missing values, so filling them is safe and because Age is strongly related
+    to survival, so guessing values could hurt the analysis.
+    Dropping rows with missing ages is safer for this dataset.
+    </p>
+    
     <pre><code>
     # Fill missing Embarked values with mode
     print(TitanicDF.Embarked)
@@ -158,6 +182,17 @@
     print(TitanicDF.isnull().sum())
     </code></pre>
 
+
+    <p>
+    Then we looked at a summary of the statistics and visualized the Age variable.
+    Plots and statistics help us:
+      <ul>
+        <li> Spot weird values </li>
+        <li> Understand the distribution </li>
+        <li> Catch mistakes in the data </li>
+      </ul>
+    </p>
+    
     <pre><code>
     print(TitanicDF.columns.values)
     print(TitanicDF.describe())
