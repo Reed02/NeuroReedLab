@@ -10,12 +10,20 @@
       font-family: Arial, sans-serif;
       max-width: 900px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 0;
       background-color: #87ceeb; /* sky blue background */
       color: #1b5e20; /* dark grass green text */
     }
 
-    /* NAVBAR - same as About page */
+    /* HEADER WRAPPER (behind navbar & title) */
+    .header {
+      background-color: #4caf50; /* darker grass green header */
+      padding: 20px 0 40px 0; /* extra space below navbar */
+      text-align: center;
+      color: white;
+    }
+
+    /* NAVBAR - exactly like About page */
     .navbar {
       display: flex;
       justify-content: center;
@@ -25,8 +33,16 @@
 
     .navbar a {
       text-decoration: none;
-      color: #1b5e20; /* dark grass green */
+      color: white; /* navbar links white for contrast */
       font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.2s;
+    }
+
+    .navbar a:hover {
+      background-color: #81c784; /* lighter green hover */
+      color: white;
     }
 
     /* DROPDOWN */
@@ -39,7 +55,7 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: #a5d6a7; /* light grass green */
+      background-color: #a5d6a7; /* light grass green dropdown */
       min-width: 180px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       z-index: 1000;
@@ -50,11 +66,11 @@
       display: block;
       padding: 10px 14px;
       font-weight: normal;
-      color: #1b5e20; /* dark green */
+      color: #1b5e20;
     }
 
     .dropdown-content a:hover {
-      background-color: #4caf50; /* grass green hover */
+      background-color: #4caf50;
       color: white;
     }
 
@@ -64,9 +80,17 @@
 
     /* PAGE TITLE */
     h1 {
-      color: #1b5e20;
-      text-align: center;
-      margin-bottom: 30px;
+      color: white; /* title white on header */
+      margin: 0;
+      margin-top: 10px;
+      font-size: 2.5em;
+    }
+
+    /* PAGE CONTENT */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
     }
 
     /* PROJECT GRID */
@@ -88,7 +112,7 @@
     }
 
     .project-card:hover {
-      background-color: #4caf50; /* grass green hover */
+      background-color: #4caf50;
       color: white;
       transform: translateY(-4px);
     }
@@ -117,39 +141,49 @@
 
 <body>
 
-  <!-- NAVIGATION - exactly like About page -->
-  <nav class="navbar">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <div class="dropdown">
-      <a href="projects.html" class="dropbtn">Projects ▾</a>
-      <div class="dropdown-content">
-        <a href="Data_Preparation.html">Kaggle Titanic Training Dataset Preparation</a>
-        <!-- Add other project links here -->
+  <!-- HEADER WRAPPER -->
+  <div class="header">
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <div class="dropdown">
+        <a href="projects.html" class="dropbtn">Projects ▾</a>
+        <div class="dropdown-content">
+          <a href="Data_Preparation.html">Kaggle Titanic Training Dataset Preparation</a>
+          <!-- Add other project links here -->
+        </div>
       </div>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="leave_testimonial.html">Leave a Testimonial</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- PAGE TITLE -->
+    <h1>Projects</h1>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="content">
+
+    <!-- PROJECT GRID -->
+    <div class="projects-grid">
+      <a href="Data_Preparation.html" class="project-card">
+        Kaggle Titanic Training Dataset Preparation
+      </a>
+      <!-- Add more project cards here -->
     </div>
-    <a href="testimonials.html">Testimonials</a>
-    <a href="leave_testimonial.html">Leave a Testimonial</a>
-    <a href="contact.html">Contact</a>
-  </nav>
 
-  <!-- PAGE TITLE -->
-  <h1>Projects</h1>
+    <!-- NO PROJECTS MESSAGE -->
+    <!--
+    <div class="no-projects">
+      No projects completed yet. Check back soon!
+    </div>
+    -->
 
-  <!-- PROJECT GRID -->
-  <div class="projects-grid">
-    <a href="Data_Preparation.html" class="project-card">
-      Kaggle Titanic Training Dataset Preparation
-    </a>
-    <!-- Add more project cards here -->
   </div>
-
-  <!-- NO PROJECTS MESSAGE -->
-  <!--
-  <div class="no-projects">
-    No projects completed yet. Check back soon!
-  </div>
-  -->
 
 </body>
 </html>
+
