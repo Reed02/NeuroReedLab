@@ -13,33 +13,85 @@
       background-color: #f5f8fa;
     }
 
-    /* HERO IMAGE HEADER */
+    /* HERO IMAGE */
     .hero {
       width: 100%;
-      height: 420px;
+      height: 450px;
       background-image: url("https://raw.githubusercontent.com/Reed02/NeuroReedLab/main/Images/BC7BC078-5D4E-458C-9B19-86DB76359CBE_1_105_c.jpeg");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      position: relative;
+      color: white;
+    }
+
+    /* DARK OVERLAY */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    /* NAVBAR OVER IMAGE */
+    .hero-nav {
+      position: absolute;
+      top: 15px;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .hero-nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 12px;
+    }
+
+    .hero-nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* HERO CONTENT */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: white;
+      padding: 0 20px;
     }
 
-    .hero-overlay {
-      background: rgba(0, 0, 0, 0.55);
-      padding: 30px 40px;
-      border-radius: 10px;
+    .hero-box {
       max-width: 800px;
+    }
+
+    .hero-box h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .hero-box h2 {
+      font-size: 1.4em;
+      font-weight: normal;
+      color: #e0e0e0;
+    }
+
+    .hero-box p {
+      font-size: 1.1em;
+      color: #f0f0f0;
+      margin-top: 15px;
+      line-height: 1.6;
     }
 
     /* MOBILE FIX */
     @media (max-width: 768px) {
       .hero {
         background-attachment: scroll;
-        height: 340px;
+        height: 380px;
       }
     }
 
@@ -47,35 +99,11 @@
     .content {
       max-width: 900px;
       margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* NAVIGATION */
-    nav {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #0b3d91;
-      margin: 0 10px;
-      font-weight: bold;
-    }
-
-    h1 {
-      font-size: 2.8em;
-      margin-bottom: 10px;
+      padding: 30px 20px;
     }
 
     h2 {
-      font-size: 1.4em;
-      color: #333;
-    }
-
-    .hero h2 {
-      color: #e6e6e6;
-      font-weight: normal;
+      color: #0b3d91;
     }
 
     p {
@@ -102,31 +130,35 @@
 
 <body>
 
-  <!-- HERO IMAGE -->
-  <div class="hero">
-    <div class="hero-overlay">
-      <h1>🧠 NeuroIntent</h1>
-      <h2>Brain-Machine Interfaces. Built with Code. Designed for Impact.</h2>
-      <p>
-        Hi, I’m <strong>Cooper Le-Doux</strong> — I create intelligent EEG tools powered by machine learning to help researchers, developers, and clinicians unlock the brain's potential.
-      </p>
+  <!-- HERO -->
+  <header class="hero">
+
+    <!-- NAVBAR OVERLAY -->
+    <nav class="hero-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="leave_testimonial.html">Leave a Testimonial</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- HERO TEXT -->
+    <div class="hero-content">
+      <div class="hero-box">
+        <h1>🧠 NeuroIntent</h1>
+        <h2>Brain-Machine Interfaces. Built with Code. Designed for Impact.</h2>
+        <p>
+          Hi, I’m <strong>Cooper Le-Doux</strong> — I create intelligent EEG tools powered by machine learning to help researchers, developers, and clinicians unlock the brain's potential.
+        </p>
+      </div>
     </div>
-  </div>
+
+  </header>
 
   <!-- PAGE CONTENT -->
   <div class="content">
 
-    <!-- Navigation -->
-    <nav>
-      <a href="index.html">Home</a> |
-      <a href="about.html">About</a> |
-      <a href="projects.html">Projects</a> |
-      <a href="testimonials.html">Testimonials</a> |
-      <a href="leave_testimonial.html">Leave a Testimonial</a> |
-      <a href="contact.html">Contact</a>
-    </nav>
-
-    <!-- Welcome Message -->
     <section>
       <h2>Welcome to My Portfolio</h2>
       <p>
@@ -139,3 +171,4 @@
 
 </body>
 </html>
+
