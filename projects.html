@@ -6,55 +6,35 @@
   <title>Projects | NeuroReedLab</title>
 
   <style>
-    /* GLOBAL STYLES */
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
       background-color: #87ceeb; /* sky blue background */
-      color: #1b5e20; /* dark grass green text */
+      color: #1b5e20; /* grass green text */
     }
 
-    a {
-      text-decoration: none;
-    }
-
-    /* HERO HEADER */
-    .hero {
-      width: 100%;
-      background: linear-gradient(to right, #4caf50, #87ceeb); /* grass green → sky blue */
-      padding: 50px 20px;
-      position: relative;
-      color: white;
-      text-align: center;
-    }
-
-    /* NAVBAR OVER HERO */
-    .hero-nav {
-      position: absolute;
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%); /* perfectly center the navbar */
+    /* NAVBAR */
+    .navbar {
       display: flex;
-      justify-content: center;
+      justify-content: center; /* center horizontally */
       gap: 20px;
-      z-index: 10;
+      margin-bottom: 20px;
     }
 
-    .hero-nav a {
-      color: white;
+    .navbar a {
+      text-decoration: none;
+      color: #1b5e20; /* dark grass green */
       font-weight: bold;
-      padding: 10px 15px;
+      padding: 8px 12px;
       border-radius: 5px;
-      display: inline-flex;
-      align-items: center; /* vertical alignment */
-      height: 40px;
-      line-height: 1;
-      transition: background 0.3s, transform 0.2s;
+      transition: background 0.2s;
     }
 
-    .hero-nav a:hover {
-      background-color: rgba(255, 255, 255, 0.25);
-      transform: translateY(-2px);
+    .navbar a:hover {
+      background-color: #4caf50; /* grass green hover */
+      color: white;
     }
 
     /* DROPDOWN */
@@ -67,8 +47,8 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: #81c784; /* light grass green */
-      min-width: 240px;
+      background-color: #a5d6a7; /* light grass green */
+      min-width: 220px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       z-index: 1000;
       border-radius: 4px;
@@ -78,11 +58,11 @@
       display: block;
       padding: 10px 14px;
       font-weight: normal;
-      color: #1b5e20;
+      color: #1b5e20; /* dark grass green */
     }
 
     .dropdown-content a:hover {
-      background-color: #87ceeb; /* sky blue hover */
+      background-color: #4caf50; /* grass green hover */
       color: white;
     }
 
@@ -90,26 +70,11 @@
       display: block;
     }
 
-    /* HERO TITLE */
-    .hero h1 {
-      font-size: 3em;
-      margin: 0;
-      margin-top: 40px; /* leave space below navbar */
-    }
-
-    /* PAGE CONTENT */
-    .content {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    h1.page-title {
-      font-size: 2.5em;
-      margin-top: 30px;
-      margin-bottom: 20px;
-      color: #1b5e20;
+    /* PAGE TITLE */
+    h1 {
       text-align: center;
+      color: #1b5e20;
+      margin-bottom: 30px;
     }
 
     /* PROJECT GRID */
@@ -117,11 +82,10 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 20px;
-      margin-top: 30px;
     }
 
     .project-card {
-      background-color: #ffffff;
+      background-color: white;
       padding: 20px;
       border-radius: 6px;
       text-align: center;
@@ -132,7 +96,7 @@
     }
 
     .project-card:hover {
-      background-color: #87ceeb;
+      background-color: #4caf50; /* grass green hover */
       color: white;
       transform: translateY(-4px);
     }
@@ -147,8 +111,9 @@
 
     /* RESPONSIVE */
     @media (max-width: 600px) {
-      .hero-nav {
+      .navbar {
         flex-direction: column;
+        align-items: center;
       }
 
       .projects-grid {
@@ -160,51 +125,40 @@
 
 <body>
 
-  <!-- HERO HEADER -->
-  <header class="hero">
-
-    <!-- NAVBAR CENTERED -->
-    <nav class="hero-nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <div class="dropdown">
-        <a href="projects.html" class="dropbtn">Projects ▾</a>
-        <div class="dropdown-content">
-          <a href="Data_Preparation.html">Kaggle Titanic Training Dataset Preparation</a>
-          <!-- Add other project links here -->
-        </div>
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <div class="dropdown">
+      <a href="projects.html" class="dropbtn">Projects ▾</a>
+      <div class="dropdown-content">
+        <a href="Data_Preparation.html">Kaggle Titanic Training Dataset Preparation</a>
+        <!-- Add other project links here -->
       </div>
-      <a href="testimonials.html">Testimonials</a>
-      <a href="leave_testimonial.html">Leave a Testimonial</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-
-    <!-- HERO TITLE -->
-    <h1>Projects</h1>
-
-  </header>
-
-  <!-- PAGE CONTENT -->
-  <div class="content">
-
-    <!-- PROJECT GRID -->
-    <div class="projects-grid">
-      <a href="Data_Preparation.html" class="project-card">
-        Kaggle Titanic Training Dataset Preparation
-      </a>
-      <!-- Add more project cards here -->
     </div>
+    <a href="testimonials.html">Testimonials</a>
+    <a href="leave_testimonial.html">Leave a Testimonial</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-    <!-- NO PROJECTS MESSAGE -->
-    <!--
-    <div class="no-projects">
-      No projects completed yet. Check back soon!
-    </div>
-    -->
+  <!-- PAGE TITLE -->
+  <h1>Projects</h1>
 
+  <!-- PROJECT GRID -->
+  <div class="projects-grid">
+    <a href="Data_Preparation.html" class="project-card">
+      Kaggle Titanic Training Dataset Preparation
+    </a>
+    <!-- Add more project cards here -->
   </div>
+
+  <!-- NO PROJECTS MESSAGE -->
+  <!--
+  <div class="no-projects">
+    No projects completed yet. Check back soon!
+  </div>
+  -->
 
 </body>
 </html>
-
 
