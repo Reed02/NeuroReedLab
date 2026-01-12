@@ -204,11 +204,29 @@
     plt.show()
     </code></pre>
 
+    <p>
+    Here we removed passegers with ages below 1 year.
+    This is because an agle like .42 doesnt make sense and likely represents bad data.
+    </p>
+    
     <pre><code>
     TitanicDF = TitanicDF[TitanicDF.Age > 1]
     print(TitanicDF.head(15))
     print(TitanicDF.describe())
     </code></pre>
+
+    <p>
+    Here we visualize fares, look at extreme values, and removed fares above $400.
+
+    This is because extremely large values can:
+      <ul>
+        <li> Skew Statistics </li>
+        <li> Hurt Models </li>
+        <li> Misrepresent Trends </li>
+      </ul>
+
+    Since only a few rows were affected, it is ok to remove them.
+    </p>
 
     <pre><code>
     plot3 = sns.boxplot(x="Fare", data=TitanicDF)
@@ -219,6 +237,17 @@
     print(TitanicDF.describe())
     </code></pre>
 
+    <p>
+    Finally here we created count plots for Survived, Pclass, and Sex.
+
+    Count plots help us quickly see:
+      <ul>
+        <li> Class Imbalance </li>
+        <li> Group Sizes </li>
+        <li> Potential Relationships Worth Exploring Later </li>
+      </ul>
+    </p>
+    
     <pre><code>
     print(TitanicDF.head(15))
 
