@@ -4,43 +4,90 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NeuroIntent | Cooper Le-Doux</title>
+
   <style>
+    /* GLOBAL */
     body {
       font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f5f8fa;
+    }
+
+    /* HERO IMAGE HEADER */
+    .hero {
+      width: 100%;
+      height: 420px;
+      background-image: url("https://raw.githubusercontent.com/Reed02/NeuroReedLab/main/Images/BC7BC078-5D4E-458C-9B19-86DB76359CBE_1_105_c.jpeg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
+      border-radius: 10px;
+      max-width: 800px;
+    }
+
+    /* MOBILE FIX */
+    @media (max-width: 768px) {
+      .hero {
+        background-attachment: scroll;
+        height: 340px;
+      }
+    }
+
+    /* CONTENT WRAPPER */
+    .content {
       max-width: 900px;
       margin: 0 auto;
       padding: 20px;
-      background-color: #f5f8fa;
     }
+
+    /* NAVIGATION */
     nav {
       text-align: center;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
+
     nav a {
       text-decoration: none;
       color: #0b3d91;
       margin: 0 10px;
       font-weight: bold;
     }
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
+
     h1 {
       font-size: 2.8em;
-      color: #0b3d91;
+      margin-bottom: 10px;
     }
+
     h2 {
       font-size: 1.4em;
       color: #333;
     }
+
+    .hero h2 {
+      color: #e6e6e6;
+      font-weight: normal;
+    }
+
     p {
       font-size: 1.1em;
       color: #555;
+      line-height: 1.6;
     }
+
     section {
       margin-top: 40px;
     }
+
     .button {
       display: inline-block;
       padding: 10px 15px;
@@ -52,35 +99,43 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">Home</a> |
-    <a href="about.html">About</a> |
-    <a href="projects.html">Projects</a> |
-    <a href="testimonials.html">Testimonials</a> |
-    <a href="leave_testimonial.html">Leave a Testimonial</a> |
-    <a href="contact.html">Contact</a>
-  </nav>
+  <!-- HERO IMAGE -->
+  <div class="hero">
+    <div class="hero-overlay">
+      <h1>🧠 NeuroIntent</h1>
+      <h2>Brain-Machine Interfaces. Built with Code. Designed for Impact.</h2>
+      <p>
+        Hi, I’m <strong>Cooper Le-Doux</strong> — I create intelligent EEG tools powered by machine learning to help researchers, developers, and clinicians unlock the brain's potential.
+      </p>
+    </div>
+  </div>
 
-  <!-- Hero Section -->
-  <header>
-    <h1>🧠 NeuroIntent</h1>
-    <h2>Brain-Machine Interfaces. Built with Code. Designed for Impact.</h2>
-    <p>
-      Hi, I’m <strong>Cooper Le-Doux</strong> — I create intelligent EEG tools powered by machine learning to help researchers, developers, and clinicians unlock the brain's potential.
-    </p>
-  </header>
+  <!-- PAGE CONTENT -->
+  <div class="content">
 
-  <!-- Welcome Message -->
-  <section>
-    <h2>Welcome to My Portfolio</h2>
-    <p>
-      Whether you're a researcher, a developer, or a curious explorer in neurotechnology, this site showcases my journey as I build meaningful tools in EEG and brain-computer interface development.
-    </p>
-    <a class="button" href="projects.html">Explore My Projects</a>
-  </section>
+    <!-- Navigation -->
+    <nav>
+      <a href="index.html">Home</a> |
+      <a href="about.html">About</a> |
+      <a href="projects.html">Projects</a> |
+      <a href="testimonials.html">Testimonials</a> |
+      <a href="leave_testimonial.html">Leave a Testimonial</a> |
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- Welcome Message -->
+    <section>
+      <h2>Welcome to My Portfolio</h2>
+      <p>
+        Whether you're a researcher, a developer, or a curious explorer in neurotechnology, this site showcases my journey as I build meaningful tools in EEG and brain-computer interface development.
+      </p>
+      <a class="button" href="projects.html">Explore My Projects</a>
+    </section>
+
+  </div>
 
 </body>
 </html>
