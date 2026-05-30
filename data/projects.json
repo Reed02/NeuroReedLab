@@ -1,1 +1,9 @@
-
+[
+  {
+    "title": "Machine Learning for Solar Flares",
+    "tag": "Data Prep",
+    "url": "https://creedle-doux.great-site.net",
+    "desc": "Cleaning, feature engineering, and exploratory analysis on the Open Source NASA Solar Flare Dataset.",
+    "external": true
+  }
+]
