@@ -7,115 +7,27 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --accent: #5C5AE8; --accent-light: #EEEDFE; --accent-mid: #CECBF6; --accent-dark: #3C3489;
-      --text-primary: #1a1a1a; --text-secondary: #6b6b6b; --text-muted: #a0a0a0;
-      --border: rgba(0,0,0,0.08); --border-hover: #AFA9EC;
-      --bg: #ffffff; --bg-surface: #f7f7f5; --radius-md: 10px; --radius-lg: 16px;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-
-    .navbar {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; height: 60px;
-    }
-    .logo { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--text-primary); text-decoration: none; letter-spacing: -0.01em; }
-    .logo em { font-style: italic; color: var(--accent); }
-    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
-    .nav-links a { font-size: 13.5px; font-weight: 400; color: var(--text-secondary); text-decoration: none; padding: 6px 14px; border-radius: 99px; transition: background 0.15s, color 0.15s; }
-    .nav-links a:hover { background: var(--bg-surface); color: var(--text-primary); }
-    .nav-links a.active { background: var(--accent-light); color: var(--accent-dark); font-weight: 500; }
-    .dropdown { position: relative; }
-    .dropdown-menu { display: none; position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: 0 8px 24px rgba(0,0,0,0.08); min-width: 260px; overflow: hidden; z-index: 200; }
-    .dropdown:hover .dropdown-menu { display: block; }
-    .dropdown-menu a { display: block; padding: 10px 16px; font-size: 13px; color: var(--text-primary); text-decoration: none; border-radius: 0; transition: background 0.12s; }
-    .dropdown-menu a:hover { background: var(--accent-light); color: var(--accent-dark); }
-
-    .hero { max-width: 760px; margin: 0 auto; padding: 80px 40px 56px; text-align: center; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 5px 14px; border-radius: 99px; margin-bottom: 22px; }
-    .hero-badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
-    .hero h1 { font-family: 'DM Serif Display', serif; font-size: 52px; font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--text-primary); margin-bottom: 18px; }
-    .hero h1 em { font-style: italic; color: var(--accent); }
-    .hero p { font-size: 16px; font-weight: 300; color: var(--text-secondary); line-height: 1.7; max-width: 440px; margin: 0 auto; }
-
-    .divider { max-width: 860px; margin: 0 auto; padding: 0 40px; }
-    .divider hr { border: none; border-top: 1px solid var(--border); }
-
-    .content { max-width: 580px; margin: 0 auto; padding: 48px 40px 80px; }
-
-    .contact-grid { display: flex; flex-direction: column; gap: 12px; }
-
-    .contact-card {
-      display: flex; align-items: center; gap: 16px;
-      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg);
-      padding: 20px 22px; text-decoration: none;
-      transition: border-color 0.2s, transform 0.15s;
-      position: relative; overflow: hidden;
-    }
-    .contact-card::before { content: ''; position: absolute; inset: 0; background: var(--accent-light); opacity: 0; transition: opacity 0.2s; }
-    .contact-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
-    .contact-card:hover::before { opacity: 1; }
-    .contact-card > * { position: relative; }
-
-    .contact-icon { width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--bg-surface); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
-    .contact-card:hover .contact-icon { background: var(--accent-mid); }
-    .contact-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
-
-    .contact-body { flex: 1; }
-    .contact-label { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
-    .contact-value { font-size: 14px; font-weight: 400; color: var(--text-primary); }
-
-    .contact-arrow { font-size: 16px; color: var(--text-muted); opacity: 0; transition: opacity 0.2s; }
-    .contact-card:hover .contact-arrow { opacity: 1; color: var(--accent); }
-
-    .footer { border-top: 1px solid var(--border); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; max-width: 860px; margin: 0 auto; }
-    .footer-logo { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--text-secondary); }
-    .footer-logo em { font-style: italic; color: var(--accent); }
-    .footer-copy { font-size: 12px; color: var(--text-muted); }
-
-    @media (max-width: 640px) {
-      .navbar { padding: 0 20px; } .nav-links { display: none; }
-      .hero { padding: 56px 24px 40px; } .hero h1 { font-size: 36px; }
-      .content { padding: 32px 24px 60px; } .divider { padding: 0 24px; }
-      .footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <nav class="navbar">
-    <a href="index.html" class="logo">Neuro<em>Reed</em>Lab</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li class="dropdown">
-        <a href="projects.html">Projects ▾</a>
-        <div class="dropdown-menu">
-          <a href="https://creedle-doux.great-site.net" target="_blank">Machine Learning for Solar Flares</a>
-        </div>
-      </li>
-      <li><a href="testimonials.html">Testimonials</a></li>
-      <li><a href="leave_testimonial.html">Leave a Testimonial</a></li>
-      <li><a href="contact.html" class="active">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- NAVBAR (injected by nav.js) -->
+  <div id="navbar"></div>
 
+  <!-- HERO -->
   <header class="hero">
-    <div class="hero-badge"><span class="hero-badge-dot"></span>Get in touch</div>
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Get in touch
+    </div>
     <h1>Let's <em>connect</em></h1>
     <p>Open to collaborations, research opportunities, or just a conversation about neurotechnology and ML.</p>
   </header>
 
   <div class="divider"><hr /></div>
 
-  <div class="content">
+  <!-- CONTACT CARDS -->
+  <div class="contact-content">
     <div class="contact-grid">
 
       <a href="mailto:r.ledoux.cooper@gmail.com" class="contact-card">
@@ -164,11 +76,11 @@
     </div>
   </div>
 
-  <footer class="footer">
-    <div class="footer-logo">Neuro<em>Reed</em>Lab</div>
-    <div class="footer-copy">&copy; 2025 NeuroReedLab</div>
-  </footer>
+  <!-- FOOTER (injected by nav.js) -->
+  <div id="footer"></div>
 
+  <script src="js/nav.js"></script>
+  <script src="js/projects.js"></script>
 </body>
 </html>
 
