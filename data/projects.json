@@ -5,10 +5,7 @@
     "url": "https://creedle-doux.great-site.net",
     "desc": "Cleaning, feature engineering, and exploratory analysis on the Open Source NASA Solar Flare Dataset.",
     "external": true
-  }
-]
-
-[
+  },
   {
     "title": "NNSA MSIIP Internship EEG Project",
     "tag": "Data Prep",
