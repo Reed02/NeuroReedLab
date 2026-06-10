@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Normalized Spectra &mdash; NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html"><div class="hdr-dot"></div><span class="hdr-title">NeuroReedLab</span></a>
+  <nav><ul class="nav-links">
+    <li><a class="nav-link " href="../../index.html">Overview</a></li>
+    <li><a class="nav-link " href="../../data-prep.html">Data Prep</a></li>
+    <li><a class="nav-link active" href="../../methods.html">Methods</a></li>
+    <li><a class="nav-link " href="../../datasets.html">Datasets</a></li>
+    <li><a class="nav-link " href="../../conclusion.html">Conclusion</a></li>
+  </ul></nav>
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+<div class="script-page"><div class="script-nav"><a class="script-nav-back" href="../../methods.html">&larr; Back</a><div class="script-nav-pager"><a class="pager-btn" href="02_fft_peak_frequency.html">&larr; FFT Peak</a><a class="pager-btn" href="04_sliding_window_frequency.html">Sliding Window &rarr;</a></div></div><div class="script-header"><div class="script-number">Script 03 &mdash; Methods</div><h1 class="script-title">Normalized Amplitude Spectra</h1><p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">Each channel normalized to max 1, stacked with fixed vertical offsets for cross-channel comparison.</p><div class="tags"><span class="tag tg-m">MATLAB</span><span class="tag tg-v">Visualization</span></div><div class="file-links"><a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/02_methods/matlab/03_normalized_amplitude_spectra.m" target="_blank"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>03_normalized_amplitude_spectra.m</a></div></div><div class="script-section"><div class="script-section-label">The Readability Problem</div><p>When all 64 channels' amplitude spectra are plotted without normalization, channels with high amplitude dominate and low-amplitude channels are invisible. The solution is to normalize each channel to a maximum of 1 and add a fixed vertical offset proportional to the channel index, creating a waterfall-style plot where all 64 channels are legible simultaneously.</p></div><div class="script-section"><div class="script-section-label">Core Code</div><div class="cb"><div class="cb-hdr"><span class="cb-fn">03_normalized_amplitude_spectra.m</span><span class="cb-lg">MATLAB</span></div><div class="cb-body"><code><span class="vr">offsetStep</span> = <span class="nm">0.1</span>;  <span class="cm">% vertical spacing between channels</span>
+
+<span class="kw">for</span> ch = <span class="nm">1</span>:numChannels
+    <span class="cm">% ... compute FFT P1 as before ...</span>
+
+    <span class="cm">% Normalize each channel to its own maximum</span>
+    P1_norm = P1 / <span class="fn">max</span>(P1);
+
+    <span class="cm">% Offset by channel index</span>
+    <span class="vr">offset</span> = (ch - <span class="nm">1</span>) * offsetStep;
+    <span class="fn">plot</span>(f, P1_norm + offset);
+<span class="kw">end</span>
+
+<span class="cm">% Y-axis labels at offset positions</span>
+<span class="fn">yticks</span>(<span class="nm">0</span>:offsetStep:(numChannels-<span class="nm">1</span>)*offsetStep);</code></div></div></div><div class="script-section"><div class="script-section-label">Thought Process</div><p>The 0.1 offset step was chosen empirically. With 64 channels a step of 0.1 produces a total span of 6.3 units. The normalized spectra peak at 1.0, so there is minimal overlap between adjacent channels while still fitting the entire stack on a readable figure.</p><p>Normalizing per-channel is correct here because the goal is to compare frequency shape, not amplitude. Whether a channel has peak amplitude 1 &micro;V or 50 &micro;V is irrelevant for identifying which channels show beta activity during the task.</p></div></div>
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004.</span>
+</footer>
+</body>
+</html>

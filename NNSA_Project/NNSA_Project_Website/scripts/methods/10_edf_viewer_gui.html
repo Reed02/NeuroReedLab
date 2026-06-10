@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDF Viewer GUI &mdash; NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html"><div class="hdr-dot"></div><span class="hdr-title">NeuroReedLab</span></a>
+  <nav><ul class="nav-links">
+    <li><a class="nav-link " href="../../index.html">Overview</a></li>
+    <li><a class="nav-link " href="../../data-prep.html">Data Prep</a></li>
+    <li><a class="nav-link active" href="../../methods.html">Methods</a></li>
+    <li><a class="nav-link " href="../../datasets.html">Datasets</a></li>
+    <li><a class="nav-link " href="../../conclusion.html">Conclusion</a></li>
+  </ul></nav>
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+<div class="script-page"><div class="script-nav"><a class="script-nav-back" href="../../methods.html">&larr; Back</a><div class="script-nav-pager"><a class="pager-btn" href="09_artifact_detection.html">&larr; Artifact Detection</a><a class="pager-btn" href="11_channel_position_mapper.html">Channel Mapper &rarr;</a></div></div><div class="script-header"><div class="script-number">Script 10 &mdash; Methods</div><h1 class="script-title">EDF Viewer GUI</h1><p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">Full Tkinter desktop application: EDF import, channel browser, and embedded Python REPL.</p><div class="tags"><span class="tag tg-p">Python</span><span class="tag tg-t">Tkinter</span><span class="tag tg-t">GUI</span></div><div class="file-links"><a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/02_methods/python/02_edf_viewer_gui.py" target="_blank"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>02_edf_viewer_gui.py</a></div></div><div class="script-section"><div class="script-section-label">Motivation</div><p>The MATLAB scripts required reopening and editing the code to change which file was loaded or which analysis was run. A reusable interactive tool that could load any EDF, display it, and let you write analysis code against it interactively would be far faster for exploration. This script builds that tool using Python's Tkinter framework.</p></div><div class="script-section"><div class="script-section-label">Architecture</div><p>Three main components. The <strong>EDF import system</strong> uses pyedflib to load one or more files, extracting channel labels, signal arrays, and time vectors into a shared <code>db</code> dictionary indexed by channel name. The <strong>channel browser</strong> is a split-pane view with a channel listbox and a table showing time/voltage pairs for the selected channel. The <strong>Python REPL</strong> is an embedded text editor that executes arbitrary code with full access to <code>db</code>, numpy, matplotlib, and scipy.</p></div><div class="script-section"><div class="script-section-label">REPL and Tools Menu</div><div class="cb"><div class="cb-hdr"><span class="cb-fn">02_edf_viewer_gui.py</span><span class="cb-lg">Python</span></div><div class="cb-body"><code><span class="cm"># Tools menu inserts ready-to-run EEG snippets into the REPL</span>
+<span class="kw">def</span> <span class="fn">insert_bandpass</span>():
+    text_area.<span class="fn">delete</span>(<span class="st">"1.0"</span>, tk.END)
+    code = <span class="st">"from scipy.signal import butter, filtfilt\n"</span>
+    code += <span class="st">"eeg_data = db['Fc5']['signal']\n"</span>
+    code += <span class="st">"b, a = butter(4, [0.5/128, 50/128], btype='band')\n"</span>
+    code += <span class="st">"filtered_data = filtfilt(b, a, eeg_data)"</span>
+    text_area.<span class="fn">insert</span>(tk.END, code)
+
+<span class="cm"># Run button executes code with db in scope</span>
+<span class="kw">def</span> <span class="fn">run_code</span>():
+    <span class="fn">exec</span>(code, {<span class="st">"db"</span>: db, <span class="st">"np"</span>: np, <span class="st">"plt"</span>: plt})</code></div></div></div><div class="script-section"><div class="script-section-label">Thought Process</div><p>The <code>db</code> dictionary pattern &mdash; <code>db['ChannelName'] = {'time': ..., 'signal': ...}</code> &mdash; makes channel access in the REPL natural. Rather than remembering array indices, you type the channel name you saw in the browser. The Tools menu preloads complete runnable snippets for the most common operations so you don't need to write boilerplate from scratch during an exploratory session.</p><p>The REPL captures stdout and stderr and displays them in the terminal widget at the bottom of the window, so print statements and error messages appear inline without a separate console.</p></div></div>
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004.</span>
+</footer>
+</body>
+</html>

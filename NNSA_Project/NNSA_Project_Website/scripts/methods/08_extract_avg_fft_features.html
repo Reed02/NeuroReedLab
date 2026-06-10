@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avg FFT Features &mdash; NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html"><div class="hdr-dot"></div><span class="hdr-title">NeuroReedLab</span></a>
+  <nav><ul class="nav-links">
+    <li><a class="nav-link " href="../../index.html">Overview</a></li>
+    <li><a class="nav-link " href="../../data-prep.html">Data Prep</a></li>
+    <li><a class="nav-link active" href="../../methods.html">Methods</a></li>
+    <li><a class="nav-link " href="../../datasets.html">Datasets</a></li>
+    <li><a class="nav-link " href="../../conclusion.html">Conclusion</a></li>
+  </ul></nav>
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+<div class="script-page"><div class="script-nav"><a class="script-nav-back" href="../../methods.html">&larr; Back</a><div class="script-nav-pager"><a class="pager-btn" href="07_batch_image_export_7plots.html">&larr; Batch 7 Plots</a><a class="pager-btn" href="09_artifact_detection.html">Artifact Detection &rarr;</a></div></div><div class="script-header"><div class="script-number">Script 08 &mdash; Methods</div><h1 class="script-title">Extract Average FFT Features</h1><p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">Shift from visualization to ML: saves average FFT across 64 channels as compact .mat files.</p><div class="tags"><span class="tag tg-m">MATLAB</span><span class="tag tg-t">Feature Extraction</span></div><div class="file-links"><a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/02_methods/matlab/08_extract_avg_fft_features.m" target="_blank"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>08_extract_avg_fft_features.m</a></div></div><div class="script-section"><div class="script-section-label">The Shift from Visualization to Machine Learning</div><p>Scripts 01&ndash;07 produced visualizations for human inspection. This script is the pivot to machine learning: instead of saving images, it saves compact numerical feature vectors that a CNN can learn from. The feature chosen is the average FFT amplitude spectrum across all 64 channels, computed after 14&ndash;50 Hz bandpass filtering and 100ms smoothing.</p><p>Each output <code>.mat</code> file contains two variables: <code>avg_fft_row</code> (the mean amplitude at each frequency bin) and <code>f</code> (the frequency axis). The <strong>EEG_CNN_Features_AvgFFT</strong> Zenodo dataset is the direct output.</p></div><div class="script-section"><div class="script-section-label">Core Code</div><div class="cb"><div class="cb-hdr"><span class="cb-fn">08_extract_avg_fft_features.m</span><span class="cb-lg">MATLAB</span></div><div class="cb-body"><code><span class="cm">% Compute FFT for all channels, then average</span>
+<span class="vr">fft_all</span> = <span class="fn">zeros</span>(nChannels, <span class="fn">length</span>(f));
+<span class="kw">for</span> ch = <span class="nm">1</span>:nChannels
+    <span class="vr">Y</span>  = <span class="fn">fft</span>(smoothed_data(ch,:));
+    <span class="vr">P2</span> = <span class="fn">abs</span>(Y/N);
+    <span class="vr">P1</span> = P2(<span class="nm">1</span>:<span class="fn">floor</span>(N/<span class="nm">2</span>)+<span class="nm">1</span>);
+    P1(<span class="nm">2</span>:<span class="kw">end</span>-<span class="nm">1</span>) = <span class="nm">2</span>*P1(<span class="nm">2</span>:<span class="kw">end</span>-<span class="nm">1</span>);
+    fft_all(ch,:) = P1;
+<span class="kw">end</span>
+
+<span class="vr">avg_fft</span>     = <span class="fn">mean</span>(fft_all, <span class="nm">1</span>);
+<span class="vr">avg_fft_row</span> = avg_fft(:)';  <span class="cm">% ensure row vector</span>
+<span class="fn">save</span>(saveFile, <span class="st">'avg_fft_row'</span>, <span class="st">'f'</span>);</code></div></div></div><div class="script-section"><div class="script-section-label">Thought Process</div><p>Averaging across all 64 channels is a simplification chosen to keep feature dimensionality manageable for the first CNN experiments. It discards all spatial information about which brain regions show elevated activity. Saving both <code>avg_fft_row</code> and <code>f</code> in the same file makes the feature vector self-contained &mdash; you always know what frequency each element corresponds to.</p></div><div class="note"><div class="note-l">Planned improvement</div><p>Averaging across channels discards all spatial information. A straightforward improvement would be to save the full 64&times;N FFT matrix instead, giving the CNN the opportunity to learn which channels are most discriminative per class. This is a documented next step.</p></div></div>
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004.</span>
+</footer>
+</body>
+</html>

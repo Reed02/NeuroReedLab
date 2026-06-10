@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sliding Window Frequency &mdash; NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html"><div class="hdr-dot"></div><span class="hdr-title">NeuroReedLab</span></a>
+  <nav><ul class="nav-links">
+    <li><a class="nav-link " href="../../index.html">Overview</a></li>
+    <li><a class="nav-link " href="../../data-prep.html">Data Prep</a></li>
+    <li><a class="nav-link active" href="../../methods.html">Methods</a></li>
+    <li><a class="nav-link " href="../../datasets.html">Datasets</a></li>
+    <li><a class="nav-link " href="../../conclusion.html">Conclusion</a></li>
+  </ul></nav>
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+<div class="script-page"><div class="script-nav"><a class="script-nav-back" href="../../methods.html">&larr; Back</a><div class="script-nav-pager"><a class="pager-btn" href="03_normalized_amplitude_spectra.html">&larr; Normalized Spectra</a><a class="pager-btn" href="05_batch_image_export_3plots.html">Batch 3 Plots &rarr;</a></div></div><div class="script-header"><div class="script-number">Script 04 &mdash; Methods</div><h1 class="script-title">Sliding-Window Dominant Frequency</h1><p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">1-second window, 100ms step. Tracks dominant frequency in 8-80 Hz over time per channel.</p><div class="tags"><span class="tag tg-m">MATLAB</span><span class="tag tg-v">Time-Frequency</span></div><div class="file-links"><a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/02_methods/matlab/04_sliding_window_frequency.m" target="_blank"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>04_sliding_window_frequency.m</a></div></div><div class="script-section"><div class="script-section-label">Motivation</div><p>The FFT scripts so far compute a static average over the entire segment. But motor imagery is dynamic &mdash; the brain's oscillatory state changes as the person imagines a movement and then returns to rest. A sliding window analysis reveals how dominant frequency evolves over the segment duration, which is far more informative than a single spectral snapshot.</p></div><div class="script-section"><div class="script-section-label">Core Code</div><div class="cb"><div class="cb-hdr"><span class="cb-fn">04_sliding_window_frequency.m</span><span class="cb-lg">MATLAB</span></div><div class="cb-body"><code><span class="vr">window_length_samples</span> = window_length_sec * fs;  <span class="cm">% 1 second</span>
+<span class="vr">step_size_samples</span>    = step_size_sec * fs;       <span class="cm">% 100 ms</span>
+
+<span class="kw">for</span> ch = <span class="nm">1</span>:num_channels
+    <span class="kw">for</span> i = <span class="nm">1</span>:num_windows
+        <span class="vr">start_idx</span> = (i-<span class="nm">1</span>)*step_size_samples + <span class="nm">1</span>;
+        <span class="vr">segment</span>   = data(ch, start_idx:start_idx+window_length_samples-<span class="nm">1</span>);
+
+        <span class="cm">% FFT, restrict to 8-80 Hz, find peak frequency</span>
+        <span class="vr">valid_idx</span> = <span class="fn">find</span>(f >= freq_low & f <= freq_high);
+        [~, max_rel_idx] = <span class="fn">max</span>(P1(valid_idx));
+        max_freqs_all(ch, i) = f(valid_idx(max_rel_idx));
+    <span class="kw">end</span>
+<span class="kw">end</span></code></div></div></div><div class="script-section"><div class="script-section-label">Thought Process</div><p>The 8&ndash;80 Hz band focuses on beta and gamma oscillations associated with motor processing, excluding the resting alpha which would otherwise always win the peak competition. The 1-second window gives frequency resolution of 1 Hz per bin, sufficient to distinguish EEG bands. The 100ms step gives temporal resolution fine enough to track rapid oscillatory changes.</p><p>Plotting all 64 channels with vertical offsets allows visual comparison of how different scalp regions evolve in parallel. This revealed that frontal and motor channels show different dynamics than occipital channels during motor tasks.</p></div><div class="insight"><div class="ins-l">What this revealed</div><p>The plots showed that dominant frequency is not static within a segment. Transitions visible around the midpoint of longer segments are consistent with subjects seeing the target appear, performing the task, and then returning to rest. Future CNN features might benefit from capturing these temporal dynamics rather than averaging over the whole segment.</p></div></div>
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004.</span>
+</footer>
+</body>
+</html>
