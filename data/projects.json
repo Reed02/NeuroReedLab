@@ -7,3 +7,13 @@
     "external": true
   }
 ]
+
+[
+  {
+    "title": "NNSA MSIIP Internship EEG Project",
+    "tag": "Data Prep",
+    "url": "https://reed02.github.io/NeuroReedLab/NNSA_Project/NNSA_Project_Website/",
+    "desc": "EEG motor imagery classification using MATLAB, Python, MNE, and CNN analysis on the PhysioNet BCI2000 dataset.",
+    "external": true
+  }
+]
