@@ -314,6 +314,55 @@ body {
 .link-row:hover .link-icon { background: var(--accent-light); }
 .link-row:hover .link-label { color: var(--accent); }
 
+/* ==========================================
+   PROFILE CARD
+========================================== */
+
+.profile-card {
+  text-align: center;
+}
+
+.profile-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 1rem auto;
+  border: 3px solid rgba(255,255,255,0.08);
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.profile-title {
+  margin-top: 0.5rem;
+  opacity: 0.75;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   CV BUTTON
+========================================== */
+
+.cv-button {
+  display: block;
+  text-align: center;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.cv-button:hover {
+  transform: translateY(-2px);
+}
+
 /* ── TESTIMONIALS PAGE ── */
 .testimonials-content { max-width: 720px; margin: 0 auto; padding: 48px 40px 80px; }
 .testimonial-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 16px; }
