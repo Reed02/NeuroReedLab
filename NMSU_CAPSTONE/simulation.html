@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aspen Simulation — ε-Caprolactam</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="header-slot"></div>
+
+<main>
+  <div class="page-wrap">
+    <div class="page-hero">
+      <p class="breadcrumb"><a href="index.html">Overview</a> / Simulation</p>
+      <p class="section-label">Aspen Plus</p>
+      <h1>Process Simulation</h1>
+      <p>Full mass and energy balances modeled in Aspen Plus — including assumptions, adjustments from the theoretical PFD, and errors encountered during development.</p>
+    </div>
+  </div>
+
+  <!-- ── Overview ── -->
+  <div class="page-wrap">
+    <section class="section">
+      <p class="section-label">Simulation Basis</p>
+      <h2 data-reveal>Aspen Plus model overview</h2>
+      <p data-reveal>
+        The Aspen simulation was built from the theoretical PFD (Figure 1 in the report) with iterative adjustments to produce a convergent, product-generating model.
+        Because the simulation was subject to frequent modifications during development, all material balance, energy balance, and economic calculations in the report are based on the
+        <strong style="color:var(--text-1)">theoretical PFD</strong> — not the Aspen model — to ensure a stable reference basis.
+      </p>
+      <p data-reveal>
+        The final simulation produces approximately <strong style="color:var(--text-1)">56,355 kg/hr of ε-caprolactam</strong>, equivalent to ~544,000 US tons/year — exceeding the target capacity of 500,000 tons/year and confirming process feasibility at industrial scale.
+      </p>
+
+      <div class="img-card" style="margin-top:2rem;" data-reveal>
+        <img src="pfd-aspen.png" alt="Complete process flow diagram generated in Aspen Plus">
+        <p class="img-caption">Figure 2: Complete process flow diagram generated in Aspen Plus — includes all reactors, heat exchangers, pumps, separations units, and recycle loops</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Assumptions ── -->
+  <div class="page-wrap">
+    <section class="section">
+      <p class="section-label">Model Assumptions</p>
+      <h2 style="margin-bottom:1.5rem;" data-reveal>Key assumptions enabling convergence</h2>
+
+      <div class="card-grid">
+        <div class="card" data-reveal data-delay="1">
+          <h3 style="margin-bottom:0.5rem; font-size:1rem;">Vapor-phase phenol feed</h3>
+          <p style="font-size:0.88rem;">Phenol was assumed to enter R-1 as a vapor rather than a liquid, converting the reaction from vapor-liquid to vapor-vapor and enabling stable PFR kinetics in Aspen.</p>
+        </div>
+        <div class="card" data-reveal data-delay="2">
+          <h3 style="margin-bottom:0.5rem; font-size:1rem;">Liquid-phase hydroxylamine</h3>
+          <p style="font-size:0.88rem;">Hydroxylamine sulfate was assumed to be preheated to liquid phase before entering R-2, eliminating the need for a solid conveyor system in the simulation.</p>
+        </div>
+        <div class="card" data-reveal data-delay="3">
+          <h3 style="margin-bottom:0.5rem; font-size:1rem;">Complete S-1 separation</h3>
+          <p style="font-size:0.88rem;">All hydroxylamine sulfate and initial by-products were assumed to be fully separated in the centrifugal phase separator (S-1, stream 12) for simulation simplicity.</p>
+        </div>
+        <div class="card" data-reveal>
+          <h3 style="margin-bottom:0.5rem; font-size:1rem;">Palladium catalyst mass</h3>
+          <p style="font-size:0.88rem;">R-1 was modeled with 35 kg of palladium catalyst at a particle density of 1.2 g/cm³ — consistent with literature values for Pd-on-carbon at this scale.</p>
+        </div>
+        <div class="card" data-reveal>
+          <h3 style="margin-bottom:0.5rem; font-size:1rem;">Unified CSTR kinetics</h3>
+          <p style="font-size:0.88rem;">Due to limited kinetic data in literature for several reactions, the same kinetic parameters were applied to all CSTRs. Accurate per-reactor kinetics is recommended as a next step.</p>
+        </div>
+        <div class="card" data-reveal>
+          <h3 style="margin-bottom:0.5rem; font-size:1rem;">H₂ flow adjustment</h3>
+          <p style="font-size:0.88rem;">Hydrogen feed was adjusted from 2,650 kg/hr (theoretical) to 2,651 kg/hr in the simulation — a minor rounding change to maintain mass balance convergence.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Errors & Learnings ── -->
+  <div class="page-wrap">
+    <section class="section">
+      <p class="section-label">Errors & Learnings</p>
+      <h2 style="margin-bottom:1.5rem;" data-reveal>Challenges encountered in Aspen</h2>
+
+      <div class="step-list" data-reveal>
+        <div class="step-item">
+          <div class="step-num" style="font-size:0.65rem; background:var(--navy-4); border-color:rgba(248,113,113,0.3); color:#f87171;">!</div>
+          <div class="step-body">
+            <h3>Negative reactant flow rates in R-3</h3>
+            <p>When the Beckmann rearrangement kinetics were first applied to the CSTRs, Aspen returned negative flow rates for the limiting reactant — physically impossible. The fix was to use kinetic parameters from an already-converging CSTR as the starting point for all reactors in the rearrangement section (R-3-1 through R-3-3), with the same values applied consistently across all three.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="font-size:0.65rem; background:var(--navy-4); border-color:rgba(248,113,113,0.3); color:#f87171;">!</div>
+          <div class="step-body">
+            <h3>Bond structure errors for uncommon compounds</h3>
+            <p>Using Aspen's default bond structure settings for less common species (e.g. hydroxylamine sulfate, cyclohexanone oxime) caused simulation errors. Bond angles were manually calculated in the materials section and molecular structures were redrawn to allow proper thermodynamic calculations.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="font-size:0.65rem; background:var(--navy-4); border-color:rgba(248,113,113,0.3); color:#f87171;">!</div>
+          <div class="step-body">
+            <h3>Distillation column — total vs. partial condenser</h3>
+            <p>T-1 was initially configured as a "total condenser," producing two liquid streams. Since a distillation column should produce a vapor overhead and a liquid bottoms, this was corrected by switching to a "partial condenser" — consistent with physical expectations and resolving the output anomaly.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="font-size:0.65rem; background:var(--navy-4); border-color:rgba(248,113,113,0.3); color:#f87171;">!</div>
+          <div class="step-body">
+            <h3>Oleum chemistry crashing Aspen</h3>
+            <p>Fuming sulfuric acid (oleum) involves H₂SO₄ + SO₃ reacting with water to produce H₃O⁺, which is essential for the Beckmann rearrangement. Loading all these reactions into a single reactor caused Aspen to crash. Distributing them across three CSTRs in series resolved the issue and allowed the simulation to converge and produce target flowrates.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Aspen stream table ── -->
+  <div class="page-wrap">
+    <section class="section">
+      <p class="section-label">Aspen Stream Data</p>
+      <h2 style="margin-bottom:0.75rem;" data-reveal>Table 2 — Aspen-generated stream summary</h2>
+      <p style="margin-bottom:1.75rem;" data-reveal>
+        Complete mass balance data from the Aspen Plus simulation corresponding to Figure 2. All streams at 35 bar unless noted. Flow rates in kg/hr.
+        Abbreviations: ANON = cyclohexanone, CHOX = cyclohexanone oxime, HAS = hydroxylamine sulfate, FSA = fuming sulfuric acid, AS = ammonium sulfate.
+      </p>
+
+      <div class="data-table-wrap" data-reveal>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Chemical Species</th>
+              <th>Temp (°C)</th>
+              <th>P (bar)</th>
+              <th>Species flow rates (kg/hr)</th>
+              <th>Total (kg/hr)</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td>1</td><td>Phenol, Hydrogen mix</td><td>450</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Phenol:</span><span class="sp-val">60,763.0</span></span><span><span class="sp-name">Hydrogen:</span><span class="sp-val">2,651.0</span></span></div></td>
+              <td><span class="flow-total">63,413.6</span></td>
+            </tr>
+
+            <tr>
+              <td>2</td><td>Phenol, Hydrogen, ANON mix</td><td>924</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Phenol:</span><span class="sp-val">19.4</span></span><span><span class="sp-name">Hydrogen:</span><span class="sp-val">48.6</span></span><span><span class="sp-name">ANON:</span><span class="sp-val">63,345.6</span></span></div></td>
+              <td><span class="flow-total">63,413.6</span></td>
+            </tr>
+
+            <tr>
+              <td>3</td><td>Phenol</td><td>924</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Phenol:</span><span class="sp-val">19.4</span></span></div></td>
+              <td><span class="flow-total">19.4</span></td>
+            </tr>
+
+            <tr>
+              <td>4</td><td>Hydrogen, ANON mix</td><td>924</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Hydrogen:</span><span class="sp-val">48.6</span></span><span><span class="sp-name">ANON:</span><span class="sp-val">63,345.6</span></span></div></td>
+              <td><span class="flow-total">63,394.1</span></td>
+            </tr>
+
+            <tr>
+              <td>5</td><td>Hydrogen</td><td>924</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Hydrogen:</span><span class="sp-val">48.6</span></span></div></td>
+              <td><span class="flow-total">48.6</span></td>
+            </tr>
+
+            <tr>
+              <td>6</td><td>ANON</td><td>924</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">63,345.6</span></span></div></td>
+              <td><span class="flow-total">64,456.6</span></td>
+            </tr>
+
+            <tr>
+              <td>7</td><td>ANON</td><td>85</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">63,345.6</span></span></div></td>
+              <td><span class="flow-total">63,345.6</span></td>
+            </tr>
+
+            <tr>
+              <td>8</td><td>HAS</td><td>85</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">HAS:</span><span class="sp-val">51,703.2</span></span></div></td>
+              <td><span class="flow-total">51,703.2</span></td>
+            </tr>
+
+            <tr>
+              <td>9</td><td>ANON, HAS, Water, CHOX mix</td><td>85</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">30,384.7</span></span><span><span class="sp-name">Water:</span><span class="sp-val">11,627.6</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.5</span></span></div></td>
+              <td><span class="flow-total">115,049.0</span></td>
+            </tr>
+
+            <tr>
+              <td>10</td><td>ANON, HAS, Water, CHOX mix</td><td>200</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">30,384.7</span></span><span><span class="sp-name">Water:</span><span class="sp-val">11,627.6</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.5</span></span></div></td>
+              <td><span class="flow-total">115,049.0</span></td>
+            </tr>
+
+            <tr>
+              <td>11</td><td>ANON, HAS, Water, CHOX mix</td><td>227.8</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">6.1×10⁻⁵</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">15,552.7</span></span><span><span class="sp-name">Water:</span><span class="sp-val">5,456.9</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">0.1</span></span></div></td>
+              <td><span class="flow-total">21,009.0</span></td>
+            </tr>
+
+            <tr>
+              <td>12</td><td>ANON, HAS, Water, CHOX mix</td><td>259.9</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">14,832.0</span></span><span><span class="sp-name">Water:</span><span class="sp-val">6,170.7</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.4</span></span></div></td>
+              <td><span class="flow-total">94,039.0</span></td>
+            </tr>
+
+            <tr>
+              <td>13</td><td>ANON, Water, CHOX mix</td><td>227.8</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">6.1×10⁻⁵</span></span><span><span class="sp-name">Water:</span><span class="sp-val">5,456.9</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">0.1</span></span></div></td>
+              <td><span class="flow-total">5,457.0</span></td>
+            </tr>
+
+            <tr>
+              <td>14</td><td>Water</td><td>227.8</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">5,456.9</span></span></div></td>
+              <td><span class="flow-total">5,456.9</span></td>
+            </tr>
+
+            <tr>
+              <td>15</td><td>ANON, CHOX mix</td><td>227.8</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">6.1×10⁻⁵</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">0.1</span></span></div></td>
+              <td><span class="flow-total">0.1</span></td>
+            </tr>
+
+            <tr>
+              <td>16</td><td>HAS</td><td>227.8</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">HAS:</span><span class="sp-val">15,552.7</span></span></div></td>
+              <td><span class="flow-total">15,552.7</span></td>
+            </tr>
+
+            <tr>
+              <td>17</td><td>HAS</td><td>95</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">HAS:</span><span class="sp-val">15,552.7</span></span></div></td>
+              <td><span class="flow-total">15,552.7</span></td>
+            </tr>
+
+            <tr>
+              <td>18</td><td>ANON, HAS, Water, CHOX mix</td><td>95</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">14,832.0</span></span><span><span class="sp-name">Water:</span><span class="sp-val">6,170.7</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.4</span></span></div></td>
+              <td><span class="flow-total">94,039.0</span></td>
+            </tr>
+
+            <tr>
+              <td>19</td><td>ANON, HAS, Water, CHOX mix</td><td>87.1</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">30,384.7</span></span><span><span class="sp-name">Water:</span><span class="sp-val">6,170.7</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.4</span></span></div></td>
+              <td><span class="flow-total">109,592.0</span></td>
+            </tr>
+
+            <tr>
+              <td>20</td><td>ANON</td><td>87.1</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">0.0</span></span></div></td>
+              <td><span class="flow-total">0.0</span></td>
+            </tr>
+
+            <tr>
+              <td>21</td><td>HAS, Water, CHOX mix</td><td>87.1</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">HAS:</span><span class="sp-val">30,384.7</span></span><span><span class="sp-name">Water:</span><span class="sp-val">6,170.7</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.4</span></span></div></td>
+              <td><span class="flow-total">109,592.0</span></td>
+            </tr>
+
+            <tr>
+              <td>22</td><td>HAS, Water, CHOX mix</td><td>95</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">HAS:</span><span class="sp-val">30,384.7</span></span><span><span class="sp-name">Water:</span><span class="sp-val">6,170.7</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.4</span></span></div></td>
+              <td><span class="flow-total">109,592.0</span></td>
+            </tr>
+
+            <tr>
+              <td>23</td><td>Water</td><td>25</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">57.6</span></span></div></td>
+              <td><span class="flow-total">57.6</span></td>
+            </tr>
+
+            <tr>
+              <td>24</td><td>HAS, Water mix</td><td>94.8</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">HAS:</span><span class="sp-val">30,384.7</span></span><span><span class="sp-name">Water:</span><span class="sp-val">6,228.3</span></span></div></td>
+              <td><span class="flow-total">36,613.0</span></td>
+            </tr>
+
+            <tr>
+              <td>25</td><td>Water</td><td>94.8</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">6,228.3</span></span></div></td>
+              <td><span class="flow-total">6,228.3</span></td>
+            </tr>
+
+            <tr>
+              <td>26</td><td>HAS</td><td>94.8</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">HAS:</span><span class="sp-val">30,384.7</span></span></div></td>
+              <td><span class="flow-total">30,384.7</span></td>
+            </tr>
+
+            <tr>
+              <td>27</td><td>CHOX</td><td>94.8</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.4</span></span></div></td>
+              <td><span class="flow-total">73,036.4</span></td>
+            </tr>
+
+            <tr>
+              <td>28</td><td>Water, SO₃, FSA mix</td><td>25</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">12,100.0</span></span><span><span class="sp-name">SO₃:</span><span class="sp-val">13,902.3</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">41,706.9</span></span></div></td>
+              <td><span class="flow-total">67,709.2</span></td>
+            </tr>
+
+            <tr>
+              <td>29</td><td>Water, CHOX, FSA, SO₃ mix</td><td>90</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">8,972.0</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.4</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">58,737.4</span></span><span><span class="sp-name">SO₃:</span><span class="sp-val">1.6×10⁻⁹</span></span></div></td>
+              <td><span class="flow-total">140,746.0</span></td>
+            </tr>
+
+            <tr>
+              <td>30</td><td>Water, CHOX, H₃O⁺, FSA, SO₃, HSO₄⁻ mix</td><td>90</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">73,036.4</span></span><span><span class="sp-name">H₃O⁺:</span><span class="sp-val">9,473.5</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">9,892.5</span></span><span><span class="sp-name">SO₃:</span><span class="sp-val">1.6×10⁻⁹</span></span><span><span class="sp-name">HSO₄⁻:</span><span class="sp-val">48,343.1</span></span></div></td>
+              <td><span class="flow-total">140,746.0</span></td>
+            </tr>
+
+            <tr>
+              <td>31</td><td>Water, CHOX, H₃O⁺, H⁺, Caprolactam, FSA, SO₃, HSO₄⁻ mix</td><td>90</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">8,971.8</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">16,681.6</span></span><span><span class="sp-name">H₃O⁺:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">H⁺:</span><span class="sp-val">501.7</span></span><span><span class="sp-name">Caprolactam:</span><span class="sp-val">56,354.8</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">9,892.5</span></span><span><span class="sp-name">SO₃:</span><span class="sp-val">1.6×10⁻⁹</span></span><span><span class="sp-name">HSO₄⁻:</span><span class="sp-val">48,343.1</span></span></div></td>
+              <td><span class="flow-total">140,746.0</span></td>
+            </tr>
+
+            <tr>
+              <td>32</td><td>Water, CHOX, H₃O⁺, H⁺, Caprolactam, FSA, SO₃, HSO₄⁻ mix</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">8,971.8</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">16,681.6</span></span><span><span class="sp-name">H₃O⁺:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">H⁺:</span><span class="sp-val">501.7</span></span><span><span class="sp-name">Caprolactam:</span><span class="sp-val">56,354.8</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">9,892.5</span></span><span><span class="sp-name">SO₃:</span><span class="sp-val">1.6×10⁻⁹</span></span><span><span class="sp-name">HSO₄⁻:</span><span class="sp-val">48,343.1</span></span></div></td>
+              <td><span class="flow-total">140,746.0</span></td>
+            </tr>
+
+            <tr>
+              <td>33</td><td>Caprolactam</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Caprolactam:</span><span class="sp-val">56,354.8</span></span></div></td>
+              <td><span class="flow-total">56,354.8</span></td>
+            </tr>
+
+            <tr>
+              <td>34</td><td>Water, CHOX, H₃O⁺, H⁺, FSA, SO₃, HSO₄⁻ mix</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">8,971.8</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">16,681.6</span></span><span><span class="sp-name">H₃O⁺:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">H⁺:</span><span class="sp-val">501.7</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">9,892.5</span></span><span><span class="sp-name">SO₃:</span><span class="sp-val">1.6×10⁻⁹</span></span><span><span class="sp-name">HSO₄⁻:</span><span class="sp-val">48,343.1</span></span></div></td>
+              <td><span class="flow-total">84,390.8</span></td>
+            </tr>
+
+            <tr>
+              <td>35</td><td>Water, CHOX, H₃O⁺, H⁺, SO₃, HSO₄⁻</td><td>100</td><td>34</td>
+              <td><div class="species-list"><span><span class="sp-name">Water:</span><span class="sp-val">8,971.8</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">16,681.6</span></span><span><span class="sp-name">H₃O⁺:</span><span class="sp-val">0.0</span></span><span><span class="sp-name">H⁺:</span><span class="sp-val">501.7</span></span><span><span class="sp-name">SO₃:</span><span class="sp-val">1.6×10⁻⁹</span></span><span><span class="sp-name">HSO₄⁻:</span><span class="sp-val">48,343.1</span></span></div></td>
+              <td><span class="flow-total">74,498.3</span></td>
+            </tr>
+
+            <tr>
+              <td>36</td><td>FSA</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">FSA:</span><span class="sp-val">9,892.5</span></span></div></td>
+              <td><span class="flow-total">9,892.5</span></td>
+            </tr>
+
+            <tr>
+              <td>37</td><td>Caprolactam, FSA mix</td><td>92</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Caprolactam:</span><span class="sp-val">56,354.8</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">9,892.5</span></span></div></td>
+              <td><span class="flow-total">66,247.4</span></td>
+            </tr>
+
+            <tr>
+              <td>38</td><td>Ammonia</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Ammonia:</span><span class="sp-val">5,000.0</span></span></div></td>
+              <td><span class="flow-total">5,000.0</span></td>
+            </tr>
+
+            <tr>
+              <td>39</td><td>Caprolactam, Ammonia, FSA, AS mix</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Caprolactam:</span><span class="sp-val">56,354.8</span></span><span><span class="sp-name">Ammonia:</span><span class="sp-val">1,564.5</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">7.4×10⁻⁶</span></span><span><span class="sp-name">AS:</span><span class="sp-val">13,328.0</span></span></div></td>
+              <td><span class="flow-total">71,247.4</span></td>
+            </tr>
+
+            <tr>
+              <td>40</td><td>Caprolactam</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Caprolactam:</span><span class="sp-val">56,354.8</span></span></div></td>
+              <td><span class="flow-total">56,354.8</span></td>
+            </tr>
+
+            <tr>
+              <td>41</td><td>Ammonia, FSA, AS mix</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Ammonia:</span><span class="sp-val">1,564.5</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">7.4×10⁻⁶</span></span><span><span class="sp-name">AS:</span><span class="sp-val">13,328.0</span></span></div></td>
+              <td><span class="flow-total">14,892.5</span></td>
+            </tr>
+
+            <tr>
+              <td>42</td><td>AS</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">AS:</span><span class="sp-val">13,328.0</span></span></div></td>
+              <td><span class="flow-total">13,328.0</span></td>
+            </tr>
+
+            <tr>
+              <td>43</td><td>Ammonia, FSA mix</td><td>100</td><td>35</td>
+              <td><div class="species-list"><span><span class="sp-name">Ammonia:</span><span class="sp-val">1,564.5</span></span><span><span class="sp-name">FSA:</span><span class="sp-val">7.4×10⁻⁶</span></span></div></td>
+              <td><span class="flow-total">1,564.5</span></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="margin-top:2rem;">
+        <p>The Aspen simulation confirms production of <strong style="color:var(--text-1)">56,355 kg/hr ≈ 544,000 US tons/year</strong> of ε-caprolactam — exceeding the 500,000 ton/year design target. A pilot plant study is recommended to validate reactor pressures before scale-up, particularly for the PFR.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div id="footer-slot"></div>
+<script src="main.js"></script>
+</body>
+</html>

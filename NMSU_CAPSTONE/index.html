@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ε-Caprolactam Production — Overview</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="header-slot"></div>
+
+<!-- ── Hero ── -->
+<main>
+  <div class="page-wrap">
+    <section class="hero">
+      <p class="hero-eyebrow">ChemE Capstone · NMSU · May 2025</p>
+      <h1 class="hero-title">
+        Producing <span class="accent">ε-Caprolactam</span><br>
+        from Biomass-Derived Phenol
+      </h1>
+      <p class="hero-desc">
+        A complete chemical plant design for sustainable nylon-6 feedstock production — replacing
+        petroleum-based routes with a renewable, palladium-catalyzed pathway from lignin-derived phenol.
+      </p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-value" data-countup="544" data-suffix="k">—</div>
+          <div class="hero-stat-label">US tons / year capacity</div>
+        </div>
+        <div>
+          <div class="hero-stat-value" data-countup="98.5" data-suffix="%" data-decimals="1">—</div>
+          <div class="hero-stat-label">product purity</div>
+        </div>
+        <div>
+          <div class="hero-stat-value" data-countup="18.4" data-prefix="$" data-suffix="M" data-decimals="1">—</div>
+          <div class="hero-stat-label">15-year NPV (Pd catalyst)</div>
+        </div>
+        <div>
+          <div class="hero-stat-value" data-countup="60" data-suffix="%">—</div>
+          <div class="hero-stat-label">energy reduction via HEN</div>
+        </div>
+      </div>
+
+      <div style="margin-top:2.5rem;">
+        <a href="Design Project Lab Final Report.pdf" download
+           style="display:inline-flex; align-items:center; gap:10px; background:var(--navy-3); border:1px solid var(--border); color:var(--text-1); padding:0.7rem 1.25rem; border-radius:var(--radius); font-size:0.875rem; font-weight:500; transition:border-color 0.2s, background 0.2s;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 1v9m0 0L5 7m3 3l3-3M2 12v1.5A1.5 1.5 0 003.5 15h9A1.5 1.5 0 0014 13.5V12" stroke="#2dd4bf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download full report (.pdf)
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Poster ── -->
+  <div class="page-wrap">
+    <section class="section" style="padding-top:2rem; padding-bottom:3rem;">
+      <p class="section-label" style="margin-bottom:1rem;">Conference Poster</p>
+      <div class="img-card" data-reveal>
+        <iframe src="Process Design Poster.pdf" width="100%" height="780px" style="border:none; display:block;" title="Production of ε-Caprolactam Using Phenol Derived from Biomass — conference poster"></iframe>
+        <p class="img-caption">Process Design Poster — NMSU College of Engineering · Lina Khiyara, Cooper Le-Doux, Taylor Lee, Estrella Sedillo, Benedek Szalai</p>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ── Goals & Motivation ── -->
+  <div class="page-wrap">
+    <section class="section">
+      <p class="section-label">Motivation</p>
+      <h2 style="margin-bottom: 1rem;" data-reveal>Why biomass-derived caprolactam?</h2>
+      <p data-reveal data-delay="1" style="max-width:720px; margin-bottom: 2rem;">
+        ε-Caprolactam is the monomer for nylon-6, used in textiles, carpeting, and industrial applications worldwide.
+        Today's production is almost entirely petroleum-based. Phenol can instead be extracted from
+        <strong style="color:var(--text-1)">lignin</strong> — the second most abundant biopolymer on Earth — offering a genuinely
+        renewable feedstock that reduces fossil fuel dependence and associated emissions.
+      </p>
+
+      <div class="card-grid">
+        <div class="card teal-accent" data-reveal data-delay="1">
+          <h3 style="margin-bottom:0.5rem;">🌱 Renewable feedstock</h3>
+          <p style="font-size:0.92rem;">Phenol sourced from lignocellulosic biomass via lignin conversion — replacing crude-oil-derived benzene hydroperoxide routes.</p>
+        </div>
+        <div class="card teal-accent" data-reveal data-delay="2">
+          <h3 style="margin-bottom:0.5rem;">♻️ Closed-loop design</h3>
+          <p style="font-size:0.92rem;">Unreacted cyclohexanone, hydroxylamine sulfate, and water are all recycled back into the process — minimizing raw material costs and waste streams.</p>
+        </div>
+        <div class="card teal-accent" data-reveal data-delay="3">
+          <h3 style="margin-bottom:0.5rem;">📈 Economically viable</h3>
+          <p style="font-size:0.92rem;">Palladium catalyst yields a positive NPV of $18.4M over 15 years. At $3.00/kg sale price, the plant breaks even within 10 years including 2 years of construction.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Process Overview ── -->
+  <div class="page-wrap">
+    <section class="section">
+      <p class="section-label">Process at a glance</p>
+      <h2 style="margin-bottom: 2.5rem;" data-reveal>Four-reactor pathway</h2>
+
+      <div class="step-list" data-reveal>
+        <div class="step-item">
+          <div class="step-num">R-1</div>
+          <div class="step-body">
+            <h3>Phenol hydrogenation → Cyclohexanone</h3>
+            <p>Biomass-derived phenol and hydrogen gas are fed into a <strong style="color:var(--text-1)">plug flow reactor (PFR)</strong> packed with palladium catalyst. High conversion and continuous flow make the PFR ideal for this catalytic gas-phase step.</p>
+            <div class="step-meta">
+              <span class="tag tag-teal">450 °C</span>
+              <span class="tag tag-blue">1–2 bar</span>
+              <span class="tag tag-gray">Pd catalyst</span>
+              <span class="tag tag-gray">PFR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">R-2</div>
+          <div class="step-body">
+            <h3>Oximation → Cyclohexanone oxime</h3>
+            <p>Cyclohexanone reacts with hydroxylamine sulfate in a <strong style="color:var(--text-1)">CSTR</strong>. Uniform mixing suppresses side reactions (e.g. cyclohexanol formation). The effluent is split via distillation (T-1) and centrifugal phase separation (S-1) — unreacted cyclohexanone and hydroxylamine sulfate are both recycled.</p>
+            <div class="step-meta">
+              <span class="tag tag-teal">85 °C</span>
+              <span class="tag tag-blue">1–2 bar</span>
+              <span class="tag tag-gray">CSTR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">R-3</div>
+          <div class="step-body">
+            <h3>Beckmann rearrangement → ε-Caprolactam</h3>
+            <p>Purified cyclohexanone oxime undergoes <strong style="color:var(--text-1)">Beckmann rearrangement</strong> with fuming sulfuric acid (oleum) in a CSTR. Complete mixing ensures high yield and supports continuous industrial throughput. Modeled in Aspen as 3 CSTRs in series to capture accurate kinetics.</p>
+            <div class="step-meta">
+              <span class="tag tag-teal">90 °C</span>
+              <span class="tag tag-blue">1–2 bar</span>
+              <span class="tag tag-gray">CSTR × 3</span>
+              <span class="tag tag-gray">Fuming H₂SO₄</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">R-4</div>
+          <div class="step-body">
+            <h3>Ammonia neutralization → 98.5% ε-Caprolactam</h3>
+            <p>Crude caprolactam is treated with ammonia in a final <strong style="color:var(--text-1)">CSTR</strong>, neutralizing residual sulfuric acid and impurities. This yields ≥ 98.5% pure product and <strong style="color:var(--text-1)">ammonium sulfate</strong> as a co-product — purified and sold to fertilizer companies, creating an additional revenue stream.</p>
+            <div class="step-meta">
+              <span class="tag tag-teal">100 °C</span>
+              <span class="tag tag-blue">1–2 bar</span>
+              <span class="tag tag-gray">CSTR</span>
+              <span class="tag tag-gray">Ammonium sulfate co-product</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <a href="process.html" style="display:inline-flex; align-items:center; gap:6px; color:var(--teal); font-size:0.9rem; font-weight:500;">
+          View full process design & PFD →
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Key Decisions ── -->
+  <div class="page-wrap">
+    <section class="section">
+      <p class="section-label">Key Design Decisions</p>
+      <h2 style="margin-bottom:1.5rem;" data-reveal>What shaped this design</h2>
+
+      <div class="card-grid">
+        <div class="card blue-accent" data-reveal data-delay="1">
+          <h3 style="margin-bottom:0.5rem;">Palladium over nickel</h3>
+          <p style="font-size:0.9rem;">Despite Pd costing ~$15,000/kg vs ~$85/kg for Ni, palladium's far higher selectivity to cyclohexanone dramatically reduces the mass needed and downstream processing — yielding NPV of +$18.4M vs −$54.1M for nickel.</p>
+        </div>
+        <div class="card blue-accent" data-reveal data-delay="2">
+          <h3 style="margin-bottom:0.5rem;">PFR for hydrogenation</h3>
+          <p style="font-size:0.9rem;">A plug flow reactor allows catalytic packing, high conversion in a single pass, and is well-suited to continuous vapor-phase operation — ideal for the phenol + H₂ reaction at 450 °C.</p>
+        </div>
+        <div class="card blue-accent" data-reveal data-delay="3">
+          <h3 style="margin-bottom:0.5rem;">Heat exchanger network</h3>
+          <p style="font-size:0.9rem;">Pinch analysis and a 9-exchanger HEN reduced total utility usage from 89,091 MJ/h to 36,134 MJ/h — a 60% reduction — cutting annual utility costs from $3.33M to $2.44M.</p>
+        </div>
+        <div class="card blue-accent" data-reveal data-delay="3">
+          <h3 style="margin-bottom:0.5rem;">Albuquerque, NM site</h3>
+          <p style="font-size:0.9rem;">Located at 87120 with proximity to I-40 for raw material delivery and product distribution. Site layout accounts for New Mexico's high-wind environment and grid reliability challenges.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Quick links ── -->
+  <div class="page-wrap">
+    <section class="section">
+      <p class="section-label">Explore the report</p>
+      <h2 style="margin-bottom:1.5rem;" data-reveal>Navigate sections</h2>
+      <div class="card-grid">
+        <a href="process.html" class="card" style="display:block;" data-reveal data-delay="1">
+          <h3 style="color:var(--teal); margin-bottom:0.4rem;">Process Design →</h3>
+          <p style="font-size:0.9rem;">PFDs, reactor selection, separation units, stream summary tables, and the recycling strategy.</p>
+        </a>
+        <a href="simulation.html" class="card" style="display:block;" data-reveal data-delay="2">
+          <h3 style="color:var(--teal); margin-bottom:0.4rem;">Aspen Simulation →</h3>
+          <p style="font-size:0.9rem;">Aspen Plus model, assumptions, mass balance stream data, errors encountered, and key learnings.</p>
+        </a>
+        <a href="economics.html" class="card" style="display:block;" data-reveal data-delay="3">
+          <h3 style="color:var(--teal); margin-bottom:0.4rem;">Economic Analysis →</h3>
+          <p style="font-size:0.9rem;">Equipment costs, CAPEX, OPEX, NPV comparison of catalysts, and cash flow diagram.</p>
+        </a>
+        <a href="team.html" class="card" style="display:block;" data-reveal data-delay="3">
+          <h3 style="color:var(--teal); margin-bottom:0.4rem;">Team →</h3>
+          <p style="font-size:0.9rem;">Meet the five co-contributors and their individual areas of focus on this capstone project.</p>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div id="footer-slot"></div>
+<script src="main.js"></script>
+</body>
+</html>
