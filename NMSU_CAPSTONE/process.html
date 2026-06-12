@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Process Design — ε-Caprolactam</title>
+  <title>Process Design: ε-Caprolactam</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -30,11 +30,11 @@
       </div>
       <p data-reveal>
         The process begins with biomass-derived phenol fed as a vapor alongside hydrogen gas into a plug flow reactor packed with palladium catalyst.
-        A PFR was selected because it allows catalytic packing, achieves high conversion in a single pass, and is well-suited for continuous industrial-scale vapor-phase reactions.
-        Ruthenium was initially considered as a catalyst but was ruled out due to substantially higher cost. Nickel was also evaluated — while cheaper, its lower selectivity ultimately produced a negative NPV over the plant lifetime.
+        A PFR made the most sense here since it allows catalytic packing, achieves high conversion in a single pass, and handles continuous vapor-phase operation well at industrial scale.
+        Ruthenium was looked at early on but ruled out pretty quickly because of cost. Nickel was also evaluated — while cheaper, its lower selectivity ultimately produced a negative NPV over the plant lifetime.
       </p>
       <p data-reveal>
-        Palladium was confirmed as the optimal catalyst due to its high selectivity toward cyclohexanone (rather than the over-hydrogenation product, cyclohexanol). The Aspen simulation assumed 35 kg of palladium catalyst with a particle density of 1.2 g/cm³. A pilot study is recommended to determine optimal reactor pressures, as theoretical literature values did not produce fully convergent results in the simulation.
+        Palladium ended up being the clear winner due to its high selectivity toward cyclohexanone (rather than the over-hydrogenation product, cyclohexanol). The Aspen simulation assumed 35 kg of palladium catalyst with a particle density of 1.2 g/cm³. That said, a pilot study is still needed to pin down optimal reactor pressures, since the theoretical literature values didn't fully converge in Aspen.
       </p>
       <div class="step-meta" style="margin-top:1rem;">
         <span class="tag tag-teal">Feed: 16.9 kg/s phenol</span>
@@ -48,10 +48,10 @@
   <div class="page-wrap">
     <section class="section" style="padding-top:1rem; padding-bottom:2.5rem;">
       <p class="section-label">Process Flow Diagram</p>
-      <h2 style="margin-bottom:1.25rem;" data-reveal>Figure 1A — Hydrogenation & ammonia treatment</h2>
+      <h2 style="margin-bottom:1.25rem;" data-reveal>Figure 1A: Hydrogenation & ammonia treatment</h2>
       <div class="img-card" data-reveal>
         <img src="pfd-1a.png" alt="PFD Figure 1A showing R-1 hydrogenation reactor, R-4 ammonia reactor, and ammonium sulfate purification unit">
-        <p class="img-caption">Figure 1A: PFD showing the hydrogenation reactor (R-1), ammonia reactor (R-4) used to treat the final product, and the ammonium sulfate purification unit — Ph: phenol, H₂: hydrogen, ANON: cyclohexanone</p>
+        <p class="img-caption">Figure 1A: PFD showing the hydrogenation reactor (R-1), ammonia reactor (R-4) used to treat the final product, and the ammonium sulfate purification unit (Ph: phenol, H₂: hydrogen, ANON: cyclohexanone)</p>
       </div>
     </section>
   </div>
@@ -65,13 +65,13 @@
         <p><strong style="color:var(--text-1)">Reaction:</strong> Cyclohexanone + Hydroxylamine sulfate → Cyclohexanone oxime &nbsp;|&nbsp; <strong style="color:var(--text-1)">Reactor type:</strong> CSTR &nbsp;|&nbsp; <strong style="color:var(--text-1)">Conditions:</strong> 85 °C, 1–2 bar</p>
       </div>
       <p data-reveal>
-        Cyclohexanone (ANON) from R-1 is fed into a CSTR along with hydroxylamine sulfate (HAS). A continuous stirred tank reactor was chosen here to ensure uniform concentration and temperature throughout — critical for minimizing the formation of cyclohexanol as a side product.
+        Cyclohexanone (ANON) from R-1 is fed into a CSTR along with hydroxylamine sulfate (HAS). A CSTR was the right call here since it keeps concentration and temperature uniform throughout the reactor — critical for minimizing the formation of cyclohexanol as a side product.
       </p>
       <p data-reveal>
-        The effluent — a mixture of cyclohexanone oxime (CHOX), unreacted cyclohexanone, and hydroxylamine sulfate — enters a <strong style="color:var(--text-1)">distillation column (T-1)</strong>. Because cyclohexanone is significantly more volatile than the other components, it exits as the overhead vapor and is recycled back to R-2. The distillation column was configured with a partial condenser (not total) to produce a vapor overhead and a liquid bottoms, correcting an initial error discovered during Aspen simulation.
+        The effluent — a mixture of cyclohexanone oxime (CHOX), unreacted cyclohexanone, and hydroxylamine sulfate — enters a <strong style="color:var(--text-1)">distillation column (T-1)</strong>. Because cyclohexanone is significantly more volatile than the other components, it exits as the overhead vapor and is recycled back to R-2. The distillation column was configured with a partial condenser (not total) to produce a vapor overhead and a liquid bottoms, which fixed an issue we ran into during Aspen modeling.
       </p>
       <p data-reveal>
-        The bottoms stream (CHOX + HAS) is fed with water into a <strong style="color:var(--text-1)">centrifugal phase separator (S-1)</strong>. Hydroxylamine sulfate dissolves readily in water while cyclohexanone oxime does not — this solubility difference enables clean separation. The HAS/water mixture then passes through an <strong style="color:var(--text-1)">evaporator (E-1)</strong> to separate and recycle both components independently, minimizing waste and raw material costs.
+        The bottoms stream (CHOX + HAS) is fed with water into a <strong style="color:var(--text-1)">centrifugal phase separator (S-1)</strong>. Hydroxylamine sulfate dissolves readily in water while cyclohexanone oxime does not — this solubility difference enables clean separation. The HAS/water mixture then passes through an <strong style="color:var(--text-1)">evaporator (E-1)</strong> to separate and recycle both components independently, which cuts down on both waste and raw material costs.
       </p>
     </section>
   </div>
@@ -80,10 +80,10 @@
   <div class="page-wrap">
     <section class="section" style="padding-top:1rem; padding-bottom:2.5rem;">
       <p class="section-label">Process Flow Diagram</p>
-      <h2 style="margin-bottom:1.25rem;" data-reveal>Figure 1B — Oximation, Beckmann & water treatment</h2>
+      <h2 style="margin-bottom:1.25rem;" data-reveal>Figure 1B: Oximation, Beckmann & water treatment</h2>
       <div class="img-card" data-reveal>
         <img src="pfd-1b.png" alt="PFD Figure 1B showing R-2 CHOX formation, T-1 distillation, S-1 separator, E-1 evaporator, water treatment, and R-3 Beckmann rearrangement">
-        <p class="img-caption">Figure 1B: PFD showing the CHOX formation reactor (R-2), CHOX separations units (T-1 and S-1), evaporator used to obtain recycled HAS (E-1), water treatment unit, and the Beckmann rearrangement reactor (R-3) — HAS: hydroxylamine sulfate, ANON: cyclohexanone, CHOX: cyclohexanone oxime</p>
+        <p class="img-caption">Figure 1B: PFD showing the CHOX formation reactor (R-2), CHOX separations units (T-1 and S-1), evaporator used to obtain recycled HAS (E-1), water treatment unit, and the Beckmann rearrangement reactor (R-3); HAS: hydroxylamine sulfate, ANON: cyclohexanone, CHOX: cyclohexanone oxime</p>
       </div>
     </section>
   </div>
@@ -100,7 +100,7 @@
         Purified CHOX reacts with fuming sulfuric acid (oleum — a mixture of H₂SO₄ and SO₃) in a CSTR. The acid environment protonates the oxime nitrogen, enabling the Beckmann rearrangement — a carbon-nitrogen migration that opens the cyclohexanone oxime ring into the seven-membered lactam ring of ε-caprolactam.
       </p>
       <p data-reveal>
-        This step posed the most significant simulation challenge. Due to the complexity of oleum chemistry (H₂SO₄ + SO₃ reacting with water to form H₃O⁺), Aspen crashed when all reactions were placed in a single reactor. The solution was to model R-3 as <strong style="color:var(--text-1)">three CSTRs in series (R-3-1, R-3-2, R-3-3)</strong>, with the chemistry distributed across them. Additionally, kinetic values for all CSTRs were unified (same values) because accurate literature kinetics were difficult to source — a known simplification acknowledged in the simulation documentation.
+        This step was honestly the trickiest part of the simulation. Due to the complexity of oleum chemistry (H₂SO₄ + SO₃ reacting with water to form H₃O⁺), Aspen would crash when all the reactions were loaded into one reactor. The fix was to split R-3 into <strong style="color:var(--text-1)">three CSTRs in series (R-3-1, R-3-2, R-3-3)</strong>, with the chemistry spread across all three. Also, since solid kinetic data for each individual CSTR was hard to find in the literature , the same kinetic parameters were applied to all of them, which is a known simplification.
       </p>
     </section>
   </div>
@@ -114,10 +114,10 @@
         <p><strong style="color:var(--text-1)">Reaction:</strong> ε-Caprolactam (crude) + NH₃ → Purified caprolactam + (NH₄)₂SO₄ &nbsp;|&nbsp; <strong style="color:var(--text-1)">Reactor type:</strong> CSTR &nbsp;|&nbsp; <strong style="color:var(--text-1)">Conditions:</strong> 100 °C, 1–2 bar</p>
       </div>
       <p data-reveal>
-        Crude caprolactam from R-3 contains residual sulfuric acid, unreacted CHOX, and trace minerals. Ammonia is added in a final CSTR to neutralize these impurities. The CSTR ensures even distribution of ammonia throughout the product stream.
+        The crude caprolactam coming out of R-3 still has residual sulfuric acid, unreacted CHOX, and some trace minerals that need to go. Adding ammonia in a final CSTR takes care of all of that, and the CSTR keeps things well-mixed so the neutralization is thorough.
       </p>
       <p data-reveal>
-        The neutralization produces <strong style="color:var(--text-1)">ammonium sulfate ((NH₄)₂SO₄)</strong> as a co-product. Rather than treating this as waste, it is purified to fertilizer-grade specifications through a dedicated ammonium sulfate purification unit and sold — creating an additional revenue stream. The final caprolactam product achieves ≥ 98.5% purity, meeting industry standards for nylon-6 polymerization feedstock.
+        The neutralization produces <strong style="color:var(--text-1)">ammonium sulfate ((NH₄)₂SO₄)</strong> as a co-product. Rather than sending it to waste, it gets purified to fertilizer-grade standards and sold, which makes for a nice extra revenue stream. The final caprolactam product achieves ≥ 98.5% purity, meeting industry standards for nylon-6 polymerization feedstock.
       </p>
       <div class="step-meta" style="margin-top:1rem;">
         <span class="tag tag-teal">Product: 19.3 kg/s ε-caprolactam</span>
@@ -131,7 +131,7 @@
   <div class="page-wrap">
     <section class="section">
       <p class="section-label">Stream Summary</p>
-      <h2 style="margin-bottom:0.75rem;" data-reveal>Table 1 — Stream conditions (theoretical PFD)</h2>
+      <h2 style="margin-bottom:0.75rem;" data-reveal>Table 1: Stream conditions (theoretical PFD)</h2>
       <p style="margin-bottom:1.75rem;" data-reveal>All 47 streams corresponding to Figure 1A and Figure 1B. Abbreviations: ANON = cyclohexanone, CHOX = cyclohexanone oxime, HAS = hydroxylamine sulfate, FSA = fuming sulfuric acid, AS = ammonium sulfate. Mass flow rates with species breakdowns are available on the <a href="simulation.html">Simulation page</a>.</p>
 
       <div class="data-table-wrap" data-reveal>
@@ -202,7 +202,7 @@
   <div class="page-wrap">
     <section class="section">
       <p class="section-label">Material Balances</p>
-      <h2 style="margin-bottom:0.75rem;" data-reveal>Table 3 — Mass balance (theoretical PFD)</h2>
+      <h2 style="margin-bottom:0.75rem;" data-reveal>Table 2: Mass balance (theoretical PFD)</h2>
       <p style="margin-bottom:1.75rem;" data-reveal>
         Mass flow rates for all 47 streams corresponding to the theoretical PFD in Figure 1. Flow rates in kg/s and were determined using Aspen Plus based on proposed reaction pathways, operating conditions, and separation steps. Abbreviations: ANON = cyclohexanone, CHOX = cyclohexanone oxime, HAS = hydroxylamine sulfate, FSA = fuming sulfuric acid, AS = ammonium sulfate.
       </p>
@@ -220,13 +220,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td>Phenol</td><td>20</td><td>1</td><td>—</td><td><span class="flow-total">16.9</span></td></tr>
-            <tr><td>2</td><td>Hydrogen</td><td>20</td><td>1</td><td>—</td><td><span class="flow-total">0.7</span></td></tr>
-            <tr><td>3</td><td>Phenol</td><td>20</td><td>1</td><td>—</td><td><span class="flow-total">16.9</span></td></tr>
-            <tr><td>4</td><td>Hydrogen</td><td>20</td><td>1</td><td>—</td><td><span class="flow-total">0.7</span></td></tr>
-            <tr><td>5</td><td>ANON</td><td>450</td><td>2</td><td>—</td><td><span class="flow-total">17.6</span></td></tr>
-            <tr><td>6</td><td>ANON</td><td>450</td><td>2</td><td>—</td><td><span class="flow-total">17.6</span></td></tr>
-            <tr><td>7</td><td>ANON</td><td>85</td><td>2</td><td>—</td><td><span class="flow-total">17.6</span></td></tr>
+            <tr><td>1</td><td>Phenol</td><td>20</td><td>1</td><td>single component</td><td><span class="flow-total">16.9</span></td></tr>
+            <tr><td>2</td><td>Hydrogen</td><td>20</td><td>1</td><td>single component</td><td><span class="flow-total">0.7</span></td></tr>
+            <tr><td>3</td><td>Phenol</td><td>20</td><td>1</td><td>single component</td><td><span class="flow-total">16.9</span></td></tr>
+            <tr><td>4</td><td>Hydrogen</td><td>20</td><td>1</td><td>single component</td><td><span class="flow-total">0.7</span></td></tr>
+            <tr><td>5</td><td>ANON</td><td>450</td><td>2</td><td>single component</td><td><span class="flow-total">17.6</span></td></tr>
+            <tr><td>6</td><td>ANON</td><td>450</td><td>2</td><td>single component</td><td><span class="flow-total">17.6</span></td></tr>
+            <tr><td>7</td><td>ANON</td><td>85</td><td>2</td><td>single component</td><td><span class="flow-total">17.6</span></td></tr>
             <tr>
               <td>8</td><td>ANON, CHOX, HAS mix</td><td>85</td><td>2</td>
               <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">1.87×10⁻⁷</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">20.3</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">8.4</span></span></div></td>
@@ -237,11 +237,11 @@
               <td><div class="species-list"><span><span class="sp-name">ANON:</span><span class="sp-val">1.87×10⁻⁷</span></span><span><span class="sp-name">CHOX:</span><span class="sp-val">20.3</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">8.4</span></span></div></td>
               <td><span class="flow-total">31.9</span></td>
             </tr>
-            <tr><td>10</td><td>HAS</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">14.4</span></td></tr>
-            <tr><td>11</td><td>HAS</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">14.4</span></td></tr>
-            <tr><td>12</td><td>ANON</td><td>160</td><td>1</td><td>—</td><td><span class="flow-total">13.6</span></td></tr>
-            <tr><td>13</td><td>ANON</td><td>450</td><td>1</td><td>—</td><td><span class="flow-total">13.6</span></td></tr>
-            <tr><td>14</td><td>ANON</td><td>450</td><td>1</td><td>—</td><td><span class="flow-total">13.6</span></td></tr>
+            <tr><td>10</td><td>HAS</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">14.4</span></td></tr>
+            <tr><td>11</td><td>HAS</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">14.4</span></td></tr>
+            <tr><td>12</td><td>ANON</td><td>160</td><td>1</td><td>single component</td><td><span class="flow-total">13.6</span></td></tr>
+            <tr><td>13</td><td>ANON</td><td>450</td><td>1</td><td>single component</td><td><span class="flow-total">13.6</span></td></tr>
+            <tr><td>14</td><td>ANON</td><td>450</td><td>1</td><td>single component</td><td><span class="flow-total">13.6</span></td></tr>
             <tr>
               <td>15</td><td>CHOX, HAS mix</td><td>160</td><td>1</td>
               <td><div class="species-list"><span><span class="sp-name">CHOX:</span><span class="sp-val">20.3</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">4.1</span></span></div></td>
@@ -257,10 +257,10 @@
               <td><div class="species-list"><span><span class="sp-name">CHOX:</span><span class="sp-val">20.3</span></span><span><span class="sp-name">HAS:</span><span class="sp-val">4.1</span></span></div></td>
               <td><span class="flow-total">26.1</span></td>
             </tr>
-            <tr><td>18</td><td>CHOX</td><td>95</td><td>1</td><td>—</td><td><span class="flow-total">20.3</span></td></tr>
-            <tr><td>19</td><td>CHOX</td><td>95</td><td>1</td><td>—</td><td><span class="flow-total">20.3</span></td></tr>
-            <tr><td>20</td><td>Water</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">1.5</span></td></tr>
-            <tr><td>21</td><td>Water</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">1.5</span></td></tr>
+            <tr><td>18</td><td>CHOX</td><td>95</td><td>1</td><td>single component</td><td><span class="flow-total">20.3</span></td></tr>
+            <tr><td>19</td><td>CHOX</td><td>95</td><td>1</td><td>single component</td><td><span class="flow-total">20.3</span></td></tr>
+            <tr><td>20</td><td>Water</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">1.5</span></td></tr>
+            <tr><td>21</td><td>Water</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">1.5</span></td></tr>
             <tr>
               <td>22</td><td>HAS, water mix</td><td>95</td><td>1</td>
               <td><div class="species-list"><span><span class="sp-name">HAS:</span><span class="sp-val">8.4</span></span><span><span class="sp-name">Water:</span><span class="sp-val">1.7</span></span></div></td>
@@ -281,28 +281,28 @@
               <td><div class="species-list"><span><span class="sp-name">HAS:</span><span class="sp-val">8.4</span></span><span><span class="sp-name">Water:</span><span class="sp-val">1.7</span></span></div></td>
               <td><span class="flow-total">10.2</span></td>
             </tr>
-            <tr><td>26</td><td>Water</td><td>100</td><td>1.3</td><td>—</td><td><span class="flow-total">1.7</span></td></tr>
-            <tr><td>27</td><td>Water</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">1.7</span></td></tr>
-            <tr><td>28</td><td>Water</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">1.7</span></td></tr>
-            <tr><td>29</td><td>Water</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">1.7</span></td></tr>
-            <tr><td>30</td><td>Water</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">1.7</span></td></tr>
-            <tr><td>31</td><td>FSA</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">11.6</span></td></tr>
-            <tr><td>32</td><td>FSA</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">11.6</span></td></tr>
-            <tr><td>33</td><td>Caprolactam</td><td>90</td><td>1</td><td>—</td><td><span class="flow-total">15.7</span></td></tr>
-            <tr><td>34</td><td>Caprolactam</td><td>90</td><td>1</td><td>—</td><td><span class="flow-total">15.7</span></td></tr>
-            <tr><td>35</td><td>Caprolactam</td><td>100</td><td>1</td><td>—</td><td><span class="flow-total">15.7</span></td></tr>
-            <tr><td>36</td><td>Ammonia</td><td>−33</td><td>1</td><td>—</td><td><span class="flow-total">1.4</span></td></tr>
-            <tr><td>37</td><td>Ammonia</td><td>−33</td><td>1</td><td>—</td><td><span class="flow-total">1.4</span></td></tr>
-            <tr><td>38</td><td>Ammonia</td><td>100</td><td>1</td><td>—</td><td><span class="flow-total">1.4</span></td></tr>
-            <tr><td>39</td><td>AS</td><td>100</td><td>2</td><td>—</td><td><span class="flow-total">3.7</span></td></tr>
-            <tr><td>40</td><td>AS</td><td>100</td><td>2</td><td>—</td><td><span class="flow-total">3.7</span></td></tr>
-            <tr><td>41</td><td>AS</td><td>85</td><td>1</td><td>—</td><td><span class="flow-total">3.7</span></td></tr>
-            <tr><td>42</td><td>AS</td><td>60</td><td>1</td><td>—</td><td><span class="flow-total">3.7</span></td></tr>
-            <tr><td>43</td><td>AS</td><td>60</td><td>1</td><td>—</td><td><span class="flow-total">3.7</span></td></tr>
-            <tr><td>44</td><td>AS</td><td>25</td><td>1</td><td>—</td><td><span class="flow-total">3.7</span></td></tr>
-            <tr><td>45</td><td>Caprolactam</td><td>100</td><td>1</td><td>—</td><td><span class="flow-total">19.3</span></td></tr>
-            <tr><td>46</td><td>Caprolactam</td><td>100</td><td>1</td><td>—</td><td><span class="flow-total">19.3</span></td></tr>
-            <tr><td>47</td><td>Caprolactam</td><td>85</td><td>1</td><td>—</td><td><span class="flow-total">19.3</span></td></tr>
+            <tr><td>26</td><td>Water</td><td>100</td><td>1.3</td><td>single component</td><td><span class="flow-total">1.7</span></td></tr>
+            <tr><td>27</td><td>Water</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">1.7</span></td></tr>
+            <tr><td>28</td><td>Water</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">1.7</span></td></tr>
+            <tr><td>29</td><td>Water</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">1.7</span></td></tr>
+            <tr><td>30</td><td>Water</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">1.7</span></td></tr>
+            <tr><td>31</td><td>FSA</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">11.6</span></td></tr>
+            <tr><td>32</td><td>FSA</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">11.6</span></td></tr>
+            <tr><td>33</td><td>Caprolactam</td><td>90</td><td>1</td><td>single component</td><td><span class="flow-total">15.7</span></td></tr>
+            <tr><td>34</td><td>Caprolactam</td><td>90</td><td>1</td><td>single component</td><td><span class="flow-total">15.7</span></td></tr>
+            <tr><td>35</td><td>Caprolactam</td><td>100</td><td>1</td><td>single component</td><td><span class="flow-total">15.7</span></td></tr>
+            <tr><td>36</td><td>Ammonia</td><td>−33</td><td>1</td><td>single component</td><td><span class="flow-total">1.4</span></td></tr>
+            <tr><td>37</td><td>Ammonia</td><td>−33</td><td>1</td><td>single component</td><td><span class="flow-total">1.4</span></td></tr>
+            <tr><td>38</td><td>Ammonia</td><td>100</td><td>1</td><td>single component</td><td><span class="flow-total">1.4</span></td></tr>
+            <tr><td>39</td><td>AS</td><td>100</td><td>2</td><td>single component</td><td><span class="flow-total">3.7</span></td></tr>
+            <tr><td>40</td><td>AS</td><td>100</td><td>2</td><td>single component</td><td><span class="flow-total">3.7</span></td></tr>
+            <tr><td>41</td><td>AS</td><td>85</td><td>1</td><td>single component</td><td><span class="flow-total">3.7</span></td></tr>
+            <tr><td>42</td><td>AS</td><td>60</td><td>1</td><td>single component</td><td><span class="flow-total">3.7</span></td></tr>
+            <tr><td>43</td><td>AS</td><td>60</td><td>1</td><td>single component</td><td><span class="flow-total">3.7</span></td></tr>
+            <tr><td>44</td><td>AS</td><td>25</td><td>1</td><td>single component</td><td><span class="flow-total">3.7</span></td></tr>
+            <tr><td>45</td><td>Caprolactam</td><td>100</td><td>1</td><td>single component</td><td><span class="flow-total">19.3</span></td></tr>
+            <tr><td>46</td><td>Caprolactam</td><td>100</td><td>1</td><td>single component</td><td><span class="flow-total">19.3</span></td></tr>
+            <tr><td>47</td><td>Caprolactam</td><td>85</td><td>1</td><td>single component</td><td><span class="flow-total">19.3</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -336,7 +336,7 @@
         <div class="card" data-reveal data-delay="3">
           <h4 style="margin-bottom:0.4rem; color:var(--text-3); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase;">Pumping power</h4>
           <div style="font-family:'JetBrains Mono',monospace; font-size:1.6rem; font-weight:700; color:var(--blue); margin:0.25rem 0;">127 <span style="font-size:0.9rem; color:var(--text-3);">kW</span></div>
-          <p style="font-size:0.85rem;">17 centrifugal pumps — $71,220/year electricity</p>
+          <p style="font-size:0.85rem;">17 centrifugal pumps, $71,220/year in electricity</p>
         </div>
       </div>
     </section>
