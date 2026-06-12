@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aspen Simulation — ε-Caprolactam</title>
+  <title>Aspen Simulation: ε-Caprolactam</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
       <p class="breadcrumb"><a href="index.html">Overview</a> / Simulation</p>
       <p class="section-label">Aspen Plus</p>
       <h1>Process Simulation</h1>
-      <p>Full mass and energy balances modeled in Aspen Plus — including assumptions, adjustments from the theoretical PFD, and errors encountered during development.</p>
+      <p>Full mass and energy balances modeled in Aspen Plus, including assumptions, adjustments from the theoretical PFD, and errors encountered during development.</p>
     </div>
   </div>
 
@@ -26,17 +26,17 @@
       <p class="section-label">Simulation Basis</p>
       <h2 data-reveal>Aspen Plus model overview</h2>
       <p data-reveal>
-        The Aspen simulation was built from the theoretical PFD (Figure 1 in the report) with iterative adjustments to produce a convergent, product-generating model.
-        Because the simulation was subject to frequent modifications during development, all material balance, energy balance, and economic calculations in the report are based on the
-        <strong style="color:var(--text-1)">theoretical PFD</strong> — not the Aspen model — to ensure a stable reference basis.
+        The Aspen simulation started from the theoretical PFD and went through a lot of iterations before it finally converged and produced product.
+        Since the simulation was constantly being tweaked throughout development, all the material balance, energy balance, and economic numbers are based on the
+        <strong style="color:var(--text-1)">theoretical PFD</strong> rather than the Aspen model, just to have a stable reference point.
       </p>
       <p data-reveal>
-        The final simulation produces approximately <strong style="color:var(--text-1)">56,355 kg/hr of ε-caprolactam</strong>, equivalent to ~544,000 US tons/year — exceeding the target capacity of 500,000 tons/year and confirming process feasibility at industrial scale.
+        The final simulation produces approximately <strong style="color:var(--text-1)">56,355 kg/hr of ε-caprolactam</strong>, which works out to about 544,000 US tons/year, comfortably above the 500,000 ton/year target.
       </p>
 
       <div class="img-card" style="margin-top:2rem;" data-reveal>
         <img src="pfd-aspen.png" alt="Complete process flow diagram generated in Aspen Plus">
-        <p class="img-caption">Figure 2: Complete process flow diagram generated in Aspen Plus — includes all reactors, heat exchangers, pumps, separations units, and recycle loops</p>
+        <p class="img-caption">Figure 2: Complete process flow diagram from Aspen Plus, showing all reactors, heat exchangers, pumps, separations units, and recycle loops</p>
       </div>
     </section>
   </div>
@@ -50,27 +50,27 @@
       <div class="card-grid">
         <div class="card" data-reveal data-delay="1">
           <h3 style="margin-bottom:0.5rem; font-size:1rem;">Vapor-phase phenol feed</h3>
-          <p style="font-size:0.88rem;">Phenol was assumed to enter R-1 as a vapor rather than a liquid, converting the reaction from vapor-liquid to vapor-vapor and enabling stable PFR kinetics in Aspen.</p>
+          <p style="font-size:0.88rem;">Phenol was assumed to enter R-1 as a vapor instead of a liquid, turning it into a vapor-vapor reaction and letting the PFR kinetics converge in Aspen.</p>
         </div>
         <div class="card" data-reveal data-delay="2">
           <h3 style="margin-bottom:0.5rem; font-size:1rem;">Liquid-phase hydroxylamine</h3>
-          <p style="font-size:0.88rem;">Hydroxylamine sulfate was assumed to be preheated to liquid phase before entering R-2, eliminating the need for a solid conveyor system in the simulation.</p>
+          <p style="font-size:0.88rem;">HAS was assumed to be preheated to liquid phase before entering R-2, which meant no solid conveyor system was needed in the model.</p>
         </div>
         <div class="card" data-reveal data-delay="3">
           <h3 style="margin-bottom:0.5rem; font-size:1rem;">Complete S-1 separation</h3>
-          <p style="font-size:0.88rem;">All hydroxylamine sulfate and initial by-products were assumed to be fully separated in the centrifugal phase separator (S-1, stream 12) for simulation simplicity.</p>
+          <p style="font-size:0.88rem;">All HAS and initial by-products were assumed to be completely separated at S-1 (stream 12). A simplification, but it kept the model tractable.</p>
         </div>
         <div class="card" data-reveal>
           <h3 style="margin-bottom:0.5rem; font-size:1rem;">Palladium catalyst mass</h3>
-          <p style="font-size:0.88rem;">R-1 was modeled with 35 kg of palladium catalyst at a particle density of 1.2 g/cm³ — consistent with literature values for Pd-on-carbon at this scale.</p>
+          <p style="font-size:0.88rem;">R-1 was modeled with 35 kg of palladium catalyst at a particle density of 1.2 g/cm³, which is in line with Pd-on-carbon literature values.</p>
         </div>
         <div class="card" data-reveal>
           <h3 style="margin-bottom:0.5rem; font-size:1rem;">Unified CSTR kinetics</h3>
-          <p style="font-size:0.88rem;">Due to limited kinetic data in literature for several reactions, the same kinetic parameters were applied to all CSTRs. Accurate per-reactor kinetics is recommended as a next step.</p>
+          <p style="font-size:0.88rem;">Solid kinetic data was hard to come by for all the CSTR reactions, so the same parameters were used across the board. Getting accurate per-reactor kinetics is on the list for next steps.</p>
         </div>
         <div class="card" data-reveal>
           <h3 style="margin-bottom:0.5rem; font-size:1rem;">H₂ flow adjustment</h3>
-          <p style="font-size:0.88rem;">Hydrogen feed was adjusted from 2,650 kg/hr (theoretical) to 2,651 kg/hr in the simulation — a minor rounding change to maintain mass balance convergence.</p>
+          <p style="font-size:0.88rem;">Hydrogen feed was bumped from 2,650 to 2,651 kg/hr in the simulation, just a small rounding tweak to keep the mass balance from drifting.</p>
         </div>
       </div>
     </section>
@@ -87,28 +87,28 @@
           <div class="step-num" style="font-size:0.65rem; background:var(--navy-4); border-color:rgba(248,113,113,0.3); color:#f87171;">!</div>
           <div class="step-body">
             <h3>Negative reactant flow rates in R-3</h3>
-            <p>When the Beckmann rearrangement kinetics were first applied to the CSTRs, Aspen returned negative flow rates for the limiting reactant — physically impossible. The fix was to use kinetic parameters from an already-converging CSTR as the starting point for all reactors in the rearrangement section (R-3-1 through R-3-3), with the same values applied consistently across all three.</p>
+            <p>When the Beckmann rearrangement kinetics were first plugged into the CSTRs, Aspen spat out negative flow rates for the limiting reactant, which is obviously not physically possible. The workaround was to grab kinetic parameters from a CSTR that was already converging and apply those same values to R-3-1 through R-3-3.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num" style="font-size:0.65rem; background:var(--navy-4); border-color:rgba(248,113,113,0.3); color:#f87171;">!</div>
           <div class="step-body">
             <h3>Bond structure errors for uncommon compounds</h3>
-            <p>Using Aspen's default bond structure settings for less common species (e.g. hydroxylamine sulfate, cyclohexanone oxime) caused simulation errors. Bond angles were manually calculated in the materials section and molecular structures were redrawn to allow proper thermodynamic calculations.</p>
+            <p>Aspen's default bond structure settings for some of the less common compounds (hydroxylamine sulfate, cyclohexanone oxime) were causing errors. Bond angles had to be manually calculated and the structures redrawn in the materials section to get the thermodynamic calculations to work.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num" style="font-size:0.65rem; background:var(--navy-4); border-color:rgba(248,113,113,0.3); color:#f87171;">!</div>
           <div class="step-body">
             <h3>Distillation column — total vs. partial condenser</h3>
-            <p>T-1 was initially configured as a "total condenser," producing two liquid streams. Since a distillation column should produce a vapor overhead and a liquid bottoms, this was corrected by switching to a "partial condenser" — consistent with physical expectations and resolving the output anomaly.</p>
+            <p>T-1 was initially set up as a "total condenser," which was giving two liquid streams out the top and bottom. That's not how a distillation column works, so switching to a "partial condenser" fixed it and gave the expected vapor overhead and liquid bottoms.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num" style="font-size:0.65rem; background:var(--navy-4); border-color:rgba(248,113,113,0.3); color:#f87171;">!</div>
           <div class="step-body">
             <h3>Oleum chemistry crashing Aspen</h3>
-            <p>Fuming sulfuric acid (oleum) involves H₂SO₄ + SO₃ reacting with water to produce H₃O⁺, which is essential for the Beckmann rearrangement. Loading all these reactions into a single reactor caused Aspen to crash. Distributing them across three CSTRs in series resolved the issue and allowed the simulation to converge and produce target flowrates.</p>
+            <p>Fuming sulfuric acid chemistry involves H₂SO₄ + SO₃ reacting with water to form H₃O⁺, which drives the Beckmann rearrangement. Putting all of those reactions in one reactor caused Aspen to crash every time. Splitting them across three CSTRs in series finally got things running and producing the right flowrates.</p>
           </div>
         </div>
       </div>
@@ -119,9 +119,9 @@
   <div class="page-wrap">
     <section class="section">
       <p class="section-label">Aspen Stream Data</p>
-      <h2 style="margin-bottom:0.75rem;" data-reveal>Table 2 — Aspen-generated stream summary</h2>
+      <h2 style="margin-bottom:0.75rem;" data-reveal>Table 3: Aspen stream summary</h2>
       <p style="margin-bottom:1.75rem;" data-reveal>
-        Complete mass balance data from the Aspen Plus simulation corresponding to Figure 2. All streams at 35 bar unless noted. Flow rates in kg/hr.
+        Full mass balance from the Aspen simulation, corresponding to Figure 2. Everything runs at 35 bar unless otherwise noted. Flow rates in kg/hr.
         Abbreviations: ANON = cyclohexanone, CHOX = cyclohexanone oxime, HAS = hydroxylamine sulfate, FSA = fuming sulfuric acid, AS = ammonium sulfate.
       </p>
 
@@ -402,7 +402,7 @@
       </div>
 
       <div class="callout" style="margin-top:2rem;">
-        <p>The Aspen simulation confirms production of <strong style="color:var(--text-1)">56,355 kg/hr ≈ 544,000 US tons/year</strong> of ε-caprolactam — exceeding the 500,000 ton/year design target. A pilot plant study is recommended to validate reactor pressures before scale-up, particularly for the PFR.</p>
+        <p>Bottom line from the simulation: <strong style="color:var(--text-1)">56,355 kg/hr ≈ 544,000 US tons/year</strong> of ε-caprolactam, which clears the 500,000 ton/year target. A pilot plant study is still recommended before scale-up, especially to nail down the PFR operating pressures.</p>
       </div>
     </section>
   </div>
