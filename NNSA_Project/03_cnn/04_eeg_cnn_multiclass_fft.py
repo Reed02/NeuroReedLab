@@ -18,12 +18,12 @@ folder_paths = {
     "Eyes Closed":               "/Users/cooperledoux/Desktop/O_CNN_D_2/Baseline_Eyes_Closed",
     "Real Left Fist":            "/Users/cooperledoux/Desktop/O_CNN_D_2/Task1_Real_Left_Fist",
     "Real Right Fist":           "/Users/cooperledoux/Desktop/O_CNN_D_2/Task1_Real_Right_Fist",
-    "Imagined Right Fist":       "/Users/cooperledoux/Desktop/O_CNN_D/Task2_Imag_Right_Fist",
-    "Imagined Left Fist":        "/Users/cooperledoux/Desktop/O_CNN_D/Task2_Imag_Left_Fist",
-    "Both Fists":                "/Users/cooperledoux/Desktop/O_CNN_D/Task3_Real_Both_Fists",
-    "Both Feet":                 "/Users/cooperledoux/Desktop/O_CNN_D/Task3_Real_Both_Feet",
-    "Imagined Both Fists":       "/Users/cooperledoux/Desktop/O_CNN_D/Task4_Imag_Both_Fists",
-    "Imagined Both Feet":        "/Users/cooperledoux/Desktop/O_CNN_D/Task4_Imag_Both_Feet",
+    "Imagined Right Fist":       "/Users/cooperledoux/Desktop/O_CNN_D_2/Task2_Imag_Right_Fist",
+    "Imagined Left Fist":        "/Users/cooperledoux/Desktop/O_CNN_D_2/Task2_Imag_Left_Fist",
+    "Both Fists":                "/Users/cooperledoux/Desktop/O_CNN_D_2/Task3_Real_Both_Fists",
+    "Both Feet":                 "/Users/cooperledoux/Desktop/O_CNN_D_2/Task3_Real_Both_Feet",
+    "Imagined Both Fists":       "/Users/cooperledoux/Desktop/O_CNN_D_2/Task4_Imag_Both_Fists",
+    "Imagined Both Feet":        "/Users/cooperledoux/Desktop/O_CNN_D_2/Task4_Imag_Both_Feet",
 }
 label_map   = {name: idx for idx, name in enumerate(folder_paths)}
 class_names = list(label_map)
