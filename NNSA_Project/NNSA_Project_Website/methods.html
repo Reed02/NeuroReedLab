@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methods — NeuroReedLab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="hdr-left" href="index.html">
+    <div class="hdr-dot"></div>
+    <span class="hdr-title">NeuroReedLab</span>
+  </a>
+  <nav>
+    <ul class="nav-links">
+      <li><a class="nav-link " href="index.html">Overview</a></li>
+      <li><a class="nav-link " href="data-prep.html">Data Prep</a></li>
+      <li><a class="nav-link active" href="methods.html">Methods</a></li>
+      <li><a class="nav-link " href="datasets.html">Datasets</a></li>
+      <li><a class="nav-link " href="cnn.html">CNN</a></li>
+      <li><a class="nav-link " href="conclusion.html">Conclusion</a></li>
+    </ul>
+  </nav>
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+<div class="page-wrap">
+  <div class="hero">
+    <div class="eyebrow">Phase 2 &mdash; Analysis</div>
+    <h1><em>Methods</em><br>&amp; Signal Analysis</h1>
+    <p>Fifteen scripts across MATLAB and Python covering signal exploration, frequency analysis, topographic brain mapping, and algorithm validation. Each page documents the thought process behind the script, the key code, and why each decision was made.</p>
+  </div>
+  <div class="pdiv"><span class="pdiv-l">MATLAB &mdash; Signal Exploration</span><div class="pdiv-r"></div></div>
+  <a class="script-card" href="scripts/methods/01_time_domain_exploration.html">
+  <span class="sc-num">01</span>
+  <div class="sc-body">
+    <div class="sc-title">Time-Domain Exploration</div>
+    <div class="sc-desc">First look at the cleaned signal: 1–50 Hz bandpass + 100ms moving average, three plots across all 64 channels.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/02_fft_peak_frequency.html">
+  <span class="sc-num">02</span>
+  <div class="sc-body">
+    <div class="sc-title">FFT and Peak Frequency</div>
+    <div class="sc-desc">High-pass at 8 Hz then FFT per channel. Normalized offset spectra + global peak frequency tracking.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/03_normalized_amplitude_spectra.html">
+  <span class="sc-num">03</span>
+  <div class="sc-body">
+    <div class="sc-title">Normalized Amplitude Spectra</div>
+    <div class="sc-desc">Each channel normalized to max 1 and stacked with fixed offsets for readable cross-channel comparison.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/04_sliding_window_frequency.html">
+  <span class="sc-num">04</span>
+  <div class="sc-body">
+    <div class="sc-title">Sliding-Window Dominant Frequency</div>
+    <div class="sc-desc">1-second window, 100ms step. Extracts dominant frequency in 8–80 Hz over time per channel.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/05_batch_image_export_3plots.html">
+  <span class="sc-num">05</span>
+  <div class="sc-body">
+    <div class="sc-title">Batch Image Export — 3 Plots</div>
+    <div class="sc-desc">First batch pipeline: saves original, filtered, and smoothed PNGs for every .set file in a folder.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/06_seven_plot_single_file.html">
+  <span class="sc-num">06</span>
+  <div class="sc-body">
+    <div class="sc-title">Seven-Plot Analysis</div>
+    <div class="sc-desc">Comprehensive single-file view: 7 plots covering time domain, FFT at 14–50 Hz, and averaged spectra.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/07_batch_image_export_7plots.html">
+  <span class="sc-num">07</span>
+  <div class="sc-body">
+    <div class="sc-title">Batch Image Export — 7 Plots</div>
+    <div class="sc-desc">Scales the 7-plot analysis across an entire folder, producing a structured visual dataset.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/08_extract_avg_fft_features.html">
+  <span class="sc-num">08</span>
+  <div class="sc-body">
+    <div class="sc-title">Extract Average FFT Features</div>
+    <div class="sc-desc">First ML-ready output: average FFT across 64 channels saved as compact .mat feature vectors.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+
+  <div class="pdiv"><span class="pdiv-l">Python &mdash; Analysis &amp; Visualization</span><div class="pdiv-r"></div></div>
+  <a class="script-card" href="scripts/methods/09_artifact_detection.html">
+  <span class="sc-num">09</span>
+  <div class="sc-body">
+    <div class="sc-title">Artifact Detection</div>
+    <div class="sc-desc">MNE-based quality check across 6 baseline files. Flags signal excursions beyond 3 std with Gaussian smoothing.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/09b_raw_data_plotting.html">
+  <span class="sc-num">09b</span>
+  <div class="sc-body">
+    <div class="sc-title">Raw Data Plotting</div>
+    <div class="sc-desc">Batch-loads all EDF files from a subject folder, converts the first recording to a PyTorch tensor, and opens MNE&rsquo;s interactive signal browser.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/10_edf_viewer_gui.html">
+  <span class="sc-num">10</span>
+  <div class="sc-body">
+    <div class="sc-title">EDF Viewer GUI</div>
+    <div class="sc-desc">Full Tkinter desktop app with multi-file EDF import, channel browser, and embedded Python REPL with preloaded EEG tools.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/11_channel_position_mapper.html">
+  <span class="sc-num">11</span>
+  <div class="sc-body">
+    <div class="sc-title">Channel Position Mapper</div>
+    <div class="sc-desc">Drag-and-drop GUI to place 64 channel labels on a head outline. Saves positions to CSV for topomap use.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/12_psd_comparison.html">
+  <span class="sc-num">12</span>
+  <div class="sc-body">
+    <div class="sc-title">PSD Comparison Across Categories</div>
+    <div class="sc-desc">Welch PSD for all 11 movement categories. Percentage-match algorithm filters outliers before averaging.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/13_topomap_prototype.html">
+  <span class="sc-num">13</span>
+  <div class="sc-body">
+    <div class="sc-title">Topomap Prototype</div>
+    <div class="sc-desc">Proof-of-concept topomap with placeholder data. Validates cubic interpolation + head masking geometry.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/14_topomap_frequency_bands.html">
+  <span class="sc-num">14</span>
+  <div class="sc-body">
+    <div class="sc-title">Full Frequency-Band Topomaps</div>
+    <div class="sc-desc">Complete pipeline: per-channel band power (delta–gamma) interpolated onto head grid for all 11 conditions.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/15_pattern_match_validation.html">
+  <span class="sc-num">15</span>
+  <div class="sc-body">
+    <div class="sc-title">Pattern Match Validation</div>
+    <div class="sc-desc">Validates the 15%-tolerance percentage-match algorithm on 25 synthetic noisy datasets before trusting it on real EEG.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/16_eeg_stats.html">
+  <span class="sc-num">16</span>
+  <div class="sc-body">
+    <div class="sc-title">EEG Channel Statistics</div>
+    <div class="sc-desc">Loads a single EDF file and prints per-channel mean, min, and max amplitude in µV. Diagnostic baseline for the simulated EEG in Script 17.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/17_simulated_eeg.html">
+  <span class="sc-num">17</span>
+  <div class="sc-body">
+    <div class="sc-title">Simulated EEG</div>
+    <div class="sc-desc">Generates 64-channel synthetic EEG using per-channel amplitude statistics from a real subject. Momentum random walk constrained to measured bounds.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/18_multi_file_plot.html">
+  <span class="sc-num">18</span>
+  <div class="sc-body">
+    <div class="sc-title">Multi-File EEG Plot</div>
+    <div class="sc-desc">Loads a named list of segmented EDF trials and renders one stacked time-domain plot per file for direct visual comparison across segments.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/19_dtw_pattern_match.html">
+  <span class="sc-num">19</span>
+  <div class="sc-body">
+    <div class="sc-title">DTW Pattern Match</div>
+    <div class="sc-desc">Pairwise cross-correlation across 10 baseline EEG files to identify consistent signal patterns. Flags files that fail to match at least half the group.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+<a class="script-card" href="scripts/methods/20_dtw_variant_match.html">
+  <span class="sc-num">20</span>
+  <div class="sc-body">
+    <div class="sc-title">DTW Variant Match</div>
+    <div class="sc-desc">Extends Script 19 with true Dynamic Time Warping and a synthetic signal-variant generator for more permissive outlier detection on time-shifted recordings.</div>
+  </div>
+  <span class="sc-arrow">&rsaquo;</span>
+</a>
+
+</div>
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004. &middot; <a href="https://doi.org/10.18112/openneuro.ds004362.v1.0.0" target="_blank">OpenNeuro DOI</a></span>
+</footer>
+</body>
+</html>
