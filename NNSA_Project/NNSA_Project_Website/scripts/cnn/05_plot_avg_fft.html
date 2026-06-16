@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plot Avg FFT &mdash; NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html"><div class="hdr-dot"></div><span class="hdr-title">NeuroReedLab</span></a>
+  <nav><ul class="nav-links">
+    <li><a class="nav-link " href="../../index.html">Overview</a></li>
+    <li><a class="nav-link " href="../../data-prep.html">Data Prep</a></li>
+    <li><a class="nav-link " href="../../methods.html">Methods</a></li>
+    <li><a class="nav-link " href="../../datasets.html">Datasets</a></li>
+    <li><a class="nav-link active" href="../../cnn.html">CNN</a></li>
+    <li><a class="nav-link " href="../../conclusion.html">Conclusion</a></li>
+  </ul></nav>
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+<div class="script-page"><div class="script-nav"><a class="script-nav-back" href="../../conclusion.html">&larr; Back</a><div class="script-nav-pager"><a class="pager-btn" href="04_eeg_cnn_multiclass_fft.html">&larr; Multiclass FFT</a></div></div><div class="script-header"><div class="script-number">Script 05 &mdash; CNN</div><h1 class="script-title">Plot Avg FFT</h1><p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">Loads a single precomputed average-FFT .mat file and plots the mean spectral amplitude from 0&ndash;60 Hz as a quick visual inspection of the frequency-domain features used in Script 04.</p><div class="tags"><span class="tag tg-p">Python</span><span class="tag tg-v">Visualization</span><span class="tag tg-t">FFT Features</span></div><div class="file-links"><a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/03_cnn/05_plot_avg_fft.py" target="_blank"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>05_plot_avg_fft.py</a></div></div><div class="script-section"><div class="script-section-label">Purpose</div><p>Before feeding precomputed FFT features into the CNN, it is worth loading one and confirming it looks correct. This script is a one-shot visual check: load a single <code>.mat</code> file exported by MATLAB Script 08, extract the <code>avg_fft_row</code> and frequency axis, and plot the spectral curve from 0 to 60 Hz. A healthy eyes-closed baseline should show a clear alpha peak around 10 Hz; a flat or noisy plot indicates something went wrong in the MATLAB export pipeline.</p></div><div class="script-section"><div class="script-section-label">Core Code</div><div class="cb"><div class="cb-hdr"><span class="cb-fn">05_plot_avg_fft.py</span><span class="cb-lg">Python</span></div><div class="cb-body"><code>mat_contents = scipy.io.<span class="fn">loadmat</span>(mat_file)
+
+<span class="vr">avg_fft</span>     = mat_contents[<span class="st">'avg_fft_row'</span>].<span class="fn">flatten</span>()
+<span class="vr">frequencies</span> = mat_contents[<span class="st">'f'</span>].<span class="fn">flatten</span>()
+
+plt.<span class="fn">plot</span>(frequencies, avg_fft, <span class="st">'k-'</span>, linewidth=<span class="nm">2</span>)
+plt.<span class="fn">xlabel</span>(<span class="st">'Frequency (Hz)'</span>)
+plt.<span class="fn">ylabel</span>(<span class="st">'Mean Amplitude'</span>)
+plt.<span class="fn">xlim</span>([<span class="nm">0</span>, <span class="nm">60</span>])
+plt.<span class="fn">grid</span>(<span class="kw">True</span>)</code></div></div></div><div class="script-section"><div class="script-section-label">Thought Process</div><p>The <code>avg_fft_row</code> key name is the contract between this Python script and the MATLAB export in Script 08. If the MATLAB side changes the variable name, this script will raise a <code>KeyError</code> immediately rather than silently producing garbage, which makes debugging easier.</p><p>The 60 Hz upper limit on the x-axis is deliberate: EEG features relevant to motor imagery live below 40 Hz (delta, theta, alpha, beta, low gamma), and above 60 Hz the signal is increasingly dominated by muscle artifact and line noise. Cutting the plot at 60 Hz focuses attention on the meaningful part of the spectrum.</p></div><div class="insight"><div class="ins-l">Role in pipeline</div><p>This script sits at the bridge between the MATLAB preprocessing pipeline and the Python CNN. Running it on a few files from each class before starting training is a fast sanity check that the feature extraction worked correctly end-to-end. The per-class shape differences visible here are exactly what the CNN in Script 04 is learning to separate.</p></div>
+<div class="script-section"><div class="script-section-label">Outputs</div>
+<figure class="script-figure">
+  <img src="../../images/cnn/05_plot_avg_fft/05_avg_fft_eyes_closed.png" alt="Average FFT — Eyes Closed" style="width:100%;border-radius:6px;margin-bottom:0.5rem;">
+  <figcaption style="color:var(--mid);font-size:0.85rem;margin-bottom:1.5rem">Mean spectral amplitude across all segments for one Eyes Closed subject. Dominant alpha peak near 14 Hz and a beta harmonic near 27 Hz confirm a clean, well-referenced recording.</figcaption>
+</figure>
+<figure class="script-figure">
+  <img src="../../images/cnn/05_plot_avg_fft/05_avg_fft_filepath_terminal.png" alt="File path terminal" style="width:100%;border-radius:6px;margin-bottom:0.5rem;">
+  <figcaption style="color:var(--mid);font-size:0.85rem;margin-bottom:1.5rem">The .mat file path used to generate the plot above — Eyes Closed baseline from subject S001R02.</figcaption>
+</figure>
+</div>
+</div>
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004.</span>
+</footer>
+</body>
+</html>
