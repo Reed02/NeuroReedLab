@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Single-File Segmentation &mdash; NeuroReedLab</title>
+<title>Single File Segmentation &mdash; NeuroReedLab</title>
 <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -22,28 +22,133 @@
     Reed02 / NeuroReedLab
   </a>
 </header>
-<div class="script-page"><div class="script-nav"><a class="script-nav-back" href="../../data-prep.html">&larr; Back</a><div class="script-nav-pager"><a class="pager-btn" href="02_segment_one_folder.html">Folder Segmentation &rarr;</a></div></div><div class="script-header"><div class="script-number">Script 01 &mdash; Data Prep</div><h1 class="script-title">Single-File Segmentation</h1><p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">Proof-of-concept: parse one event file, slice one EDF into labeled T0/T1/T2 segments.</p><div class="tags"><span class="tag tg-m">MATLAB</span><span class="tag tg-m">EEGLAB</span></div><div class="file-links"><a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/01_data_prep/matlab/01_segment_single_file.m" target="_blank"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>01_segment_single_file.m</a></div></div><div class="script-section"><div class="script-section-label">Background</div><p>The BCI2000 dataset stores each recording run as a continuous EDF file. Before any analysis is possible, these need to be cut at event boundaries. Each EDF has a companion <code>.edf.event</code> text file listing every event marker with its label (T0, T1, or T2) and its duration in seconds. T0 marks rest periods; T1 and T2 mark specific motor or imagined motor events depending on the run number.</p><p>The approach here was to hardcode a single file &mdash; <code>S001R03.edf</code> &mdash; and get every detail right before scaling up. A mistake in the sample math would corrupt every output file silently.</p></div><div class="script-section"><div class="script-section-label">Setup &amp; Usage</div><p>Before running this script, two dependencies need to be in place.</p><p><strong>1. BioSig toolbox.</strong> Download <code>Biosig3.8.4.zip</code> from the <a href="https://github.com/Reed02/NeuroReedLab/tree/main" target="_blank">NeuroReedLab</a> repo, under <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">NNSA_Project</a> &rarr; <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project/01_data_prep" target="_blank">01_data_prep</a> &rarr; <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project/01_data_prep/matlab" target="_blank">matlab</a>. Unzip it, then run <code>biosig_installer.m</code> from within MATLAB to add it to your path.</p><p><strong>2. The dataset.</strong> Download the full EEG Motor Movement/Imagery Dataset from its <a href="https://doi.org/10.18112/openneuro.ds004362.v1.0.0" target="_blank">OpenNeuro DOI</a> (linked on the Datasets page). Save it to a folder named whatever you like &mdash; the recommended name is the OpenNeuro accession number itself.</p><p><strong>3. Add to path.</strong> In MATLAB, add that dataset folder and all of its subfolders to your path before running the script.</p><p>With BioSig installed and the dataset on your path, <code>01_segment_single_file.m</code> can be run directly on <code>S001R03.edf</code>.</p></div><div class="script-section"><div class="script-section-label">Core Code</div><div class="cb"><div class="cb-hdr"><span class="cb-fn">01_segment_single_file.m</span><span class="cb-lg">MATLAB</span></div><div class="cb-body"><code><span class="cm">% Open event file and read as raw text</span>
+
+<div class="script-page">
+<div class="script-nav">
+  <a class="script-nav-back" href="../../data-prep.html">&larr; Back</a>
+  <div class="script-nav-pager">
+    <a class="pager-btn" href="02_segment_one_folder.html">Folder Segmentation &rarr;</a>
+  </div>
+</div>
+
+<div class="script-header">
+  <div class="script-number">Script 01 &mdash; Data Prep</div>
+  <h1 class="script-title">Single File Segmentation</h1>
+  <p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">
+    Proof of concept: parse one event file, slice one EDF into labeled T0 T1 T2 segments.
+  </p>
+  <div class="tags">
+    <span class="tag tg-m">MATLAB</span>
+    <span class="tag tg-m">EEGLAB</span>
+  </div>
+  <div class="file-links">
+    <a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/01_data_prep/matlab/01_segment_single_file.m" target="_blank">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      01_segment_single_file.m
+    </a>
+  </div>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">Background</div>
+  <p>
+    The BCI2000 dataset stores each recording run as a continuous EDF file. Before any analysis is possible, these need to be cut at event boundaries. Each EDF has a companion <code>.edf.event</code> text file listing every event marker with its label T0 T1 or T2 and its duration in seconds. T0 marks rest periods while T1 and T2 mark specific motor or imagined motor events depending on the run number.
+  </p>
+  <p>
+    The approach here was to hardcode a single file <code>S001R03.edf</code> and get every detail right before scaling up. A mistake in the sample math would corrupt every output file silently.
+  </p>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">Setup &amp; Usage</div>
+
+  <p>Before running this script, two dependencies need to be in place.</p>
+
+  <p>
+    <strong>1. BioSig toolbox.</strong> Download <code>Biosig3.8.4.zip</code> from the
+    <a href="https://github.com/Reed02/NeuroReedLab/tree/main" target="_blank">NeuroReedLab</a> repo, under
+    <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">NNSA Project</a> →
+    <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project/01_data_prep" target="_blank">01 data prep</a> →
+    <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project/01_data_prep/matlab" target="_blank">matlab</a>.
+    Unzip it then run <code>biosig_installer.m</code> from within MATLAB to add it to your path.
+  </p>
+
+  <p>
+    <strong>2. The dataset.</strong> Download the full EEG Motor Movement Imagery Dataset from its
+    <a href="https://doi.org/10.18112/openneuro.ds004362.v1.0.0" target="_blank">OpenNeuro DOI</a> (linked on the Datasets page).
+    Save it to a folder named whatever you like. The recommended name is the OpenNeuro accession number itself.
+  </p>
+
+  <p>
+    <strong>3. Add to path.</strong> In MATLAB, add that dataset folder and all of its subfolders to your path before running the script.
+  </p>
+
+  <p>
+    With BioSig installed and the dataset on your path, <code>01_segment_single_file.m</code> can be run directly on <code>S001R03.edf</code>.
+  </p>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">Core Code</div>
+
+  <div class="cb">
+    <div class="cb-hdr">
+      <span class="cb-fn">01_segment_single_file.m</span>
+      <span class="cb-lg">MATLAB</span>
+    </div>
+    <div class="cb-body">
+<code><span class="cm">% Open event file and read as raw text</span>
 <span class="vr">fid</span> = <span class="fn">fopen</span>(filename, <span class="st">'r'</span>);
 <span class="vr">rawText</span> = <span class="fn">fread</span>(fid, <span class="st">'*char'</span>)';
 <span class="fn">fclose</span>(fid);
 
-<span class="cm">% Regex captures label (T0/T1/T2) and duration in seconds</span>
+<span class="cm">% Regex captures label T0 T1 T2 and duration in seconds</span>
 <span class="vr">pattern</span> = <span class="st">'(T[0-2])\s*duration:\s*([0-9]+\.[0-9]+)'</span>;
 <span class="vr">matches</span> = <span class="fn">regexp</span>(rawText, pattern, <span class="st">'tokens'</span>);
 
-<span class="cm">% Convert durations to samples, handle last-segment overflow</span>
+<span class="cm">% Convert durations to samples handle last segment overflow</span>
 <span class="vr">segment_lengths_samples</span> = <span class="fn">round</span>(durations * fs);
-<span class="kw">if</span> <span class="fn">sum</span>(segment_lengths_samples) > total_samples
+<span class="kw">if</span> <span class="fn">sum</span>(segment_lengths_samples) &gt; total_samples
     segment_lengths_samples(<span class="kw">end</span>) = total_samples - <span class="fn">sum</span>(segment_lengths_samples(<span class="nm">1</span>:<span class="kw">end</span>-<span class="nm">1</span>));
 <span class="kw">end</span>
 
 <span class="cm">% Slice and save each segment as .set</span>
 <span class="vr">EEG_seg</span>.data = EEG.data(:, start_idx:end_idx);
 <span class="vr">EEG_seg</span>.pnts = <span class="fn">size</span>(EEG_seg.data, <span class="nm">2</span>);
-<span class="fn">pop_saveset</span>(EEG_seg, <span class="st">'filename'</span>, fullpath);</code></div></div></div><div class="script-section"><div class="script-section-label">Thought Process</div><p>The regex pattern is intentionally permissive about whitespace between the label and the duration keyword, since the event file format is not perfectly consistent across all subjects in the dataset. Each regex match returns a two-element cell: the label string and the duration string, which is then converted with <code>str2double</code>.</p><p>The overflow check on the last segment is essential. Floating-point rounding when converting durations to sample counts means the sum can exceed the actual recording length by one or two samples. Without the correction, MATLAB errors trying to index beyond the end of the data matrix.</p><p>Segment filenames encode everything needed to identify them: <code>S001R03_segment_002_T1.set</code> gives subject, run, sequence number, and event label. This makes the downstream sorting step straightforward.</p></div><div class="insight"><div class="ins-l">Why start with one file</div><p>A bug in the regex or sample math produces silently wrong outputs across all 109 subjects with no easy way to detect it afterward. Getting every edge case confirmed on one file takes 10 minutes. Reprocessing 109 subjects takes hours.</p></div></div>
+<span class="fn">pop_saveset</span>(EEG_seg, <span class="st">'filename'</span>, fullpath);</code>
+    </div>
+  </div>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">Thought Process</div>
+
+  <p>
+    The regex pattern is intentionally permissive about whitespace between the label and the duration keyword since the event file format is not perfectly consistent across all subjects in the dataset. Each regex match returns a two element cell with the label string and the duration string, which is then converted with <code>str2double</code>.
+  </p>
+
+  <p>
+    The overflow check on the last segment is essential. Floating point rounding when converting durations to sample counts means the sum can exceed the actual recording length by one or two samples. Without the correction, MATLAB errors when indexing beyond the end of the data matrix.
+  </p>
+
+  <p>
+    Segment filenames encode everything needed to identify them. <code>S001R03_segment_002_T1.set</code> gives subject, run, sequence number, and event label. This makes the downstream sorting step straightforward.
+  </p>
+</div>
+
+<div class="insight">
+  <div class="ins-l">Why start with one file</div>
+  <p>
+    A bug in the regex or sample math produces silently wrong outputs across all 109 subjects with no easy way to detect it afterward. Getting every edge case confirmed on one file takes 10 minutes. Reprocessing 109 subjects takes hours.
+  </p>
+</div>
+
+</div>
+
 <footer class="site-footer">
-  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
-  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004.</span>
+  <span class="ft-l">EEG Motor Imagery · NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. “BCI2000.” <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034–1043, 2004.</span>
 </footer>
+
 </body>
 </html>
