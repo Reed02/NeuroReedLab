@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sort to Classes &mdash; NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html"><div class="hdr-dot"></div><span class="hdr-title">NeuroReedLab</span></a>
+  <nav><ul class="nav-links">
+    <li><a class="nav-link " href="../../index.html">Overview</a></li>
+    <li><a class="nav-link active" href="../../data-prep.html">Data Prep</a></li>
+    <li><a class="nav-link " href="../../methods.html">Methods</a></li>
+    <li><a class="nav-link " href="../../datasets.html">Datasets</a></li>
+    <li><a class="nav-link " href="../../cnn.html">CNN</a></li>
+    <li><a class="nav-link " href="../../conclusion.html">Conclusion</a></li>
+  </ul></nav>
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+<div class="script-page"><div class="script-nav"><a class="script-nav-back" href="../../data-prep.html">&larr; Back</a><div class="script-nav-pager"><a class="pager-btn" href="04_verify_category_counts.html">&larr; Count Verification</a><a class="pager-btn" href="06_convert_set_to_edf.html">Convert to EDF &rarr;</a></div></div><div class="script-header"><div class="script-number">Script 05 &mdash; Data Prep</div><h1 class="script-title">Sort into Classification Folders</h1><p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">Copies verified segments into EEG_Classification with 9 named class subfolders.</p><div class="tags"><span class="tag tg-m">MATLAB</span></div><div class="file-links"><a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/01_data_prep/matlab/05_sort_into_class_folders.m" target="_blank"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>05_sort_into_class_folders.m</a></div></div><div class="script-section"><div class="script-section-label">What This Does</div><p>With counts verified, this script does the actual copying. It uses the same run-number-to-task mapping and loops through all segment subfolders, using <code>copyfile</code> (not <code>movefile</code>) to copy each <code>.set</code> and <code>.fdt</code> file into the appropriate class subfolder inside <code>EEG_Classification/</code>. Copying rather than moving keeps <code>EEG_Segments/</code> intact as a backup.</p><p>The result is 9 folders: <code>Rest</code>, <code>Task1_Real_Left_Fist</code>, <code>Task1_Real_Right_Fist</code>, <code>Task2_Imag_Left_Fist</code>, <code>Task2_Imag_Right_Fist</code>, <code>Task3_Real_Both_Fists</code>, <code>Task3_Real_Both_Feet</code>, <code>Task4_Imag_Both_Fists</code>, <code>Task4_Imag_Both_Feet</code>. The <strong>EEG_Classification_SetFormat</strong> Zenodo dataset is the direct output.</p></div><div class="script-section"><div class="script-section-label">Setup &amp; Usage</div><p>No new dependencies. Once <code>03_segment_all_subjects.m</code> has produced the <code>EEG_Segments/</code> folder, this script can be run directly &mdash; it will create <code>EEG_Classification/</code> alongside it with the 9 organized class subfolders.</p></div><div class="script-section"><div class="script-section-label">Routing Logic</div><div class="cb"><div class="cb-hdr"><span class="cb-fn">05_sort_into_class_folders.m</span><span class="cb-lg">MATLAB</span></div><div class="cb-body"><code><span class="kw">if</span> <span class="fn">contains</span>(fname, <span class="st">'T0'</span>)
+    destCategory = <span class="st">'Rest'</span>;
+<span class="kw">else</span>
+    task = task_map(runNum);  <span class="cm">% e.g. Task1_Real</span>
+    <span class="kw">switch</span> task
+        <span class="kw">case</span> <span class="st">'Task1_Real'</span>
+            <span class="kw">if</span>     <span class="fn">contains</span>(fname,<span class="st">'T1'</span>), destCategory = <span class="st">'Task1_Real_Left_Fist'</span>;
+            <span class="kw">elseif</span> <span class="fn">contains</span>(fname,<span class="st">'T2'</span>), destCategory = <span class="st">'Task1_Real_Right_Fist'</span>;
+            <span class="kw">end</span>
+        <span class="cm">% ... same pattern for Task2, Task3, Task4 ...</span>
+    <span class="kw">end</span>
+<span class="kw">end</span>
+<span class="fn">copyfile</span>(fullpath, <span class="fn">fullfile</span>(masterOutputFolder, destCategory));</code></div></div></div><div class="script-section"><div class="script-section-label">Thought Process</div><p>The T0 shortcut is handled first: regardless of which run a rest segment comes from, it always belongs in the Rest category. This keeps the switch statement clean and avoids having a T0 arm duplicated inside every case.</p><p>Both <code>.set</code> and <code>.fdt</code> files must be copied together. EEGLAB stores large data arrays in the binary <code>.fdt</code> companion file; copying only the <code>.set</code> header produces broken files that load with no data. The file search uses <code>[dir(*T0.set); dir(*T1.set); dir(*T2.set)]</code> to catch all three event types.</p></div><div class="warn-box"><div class="warn-l">Baseline runs are not handled here</div><p>This script only organizes the segmented motor task files. It does not sort the baseline Eyes Open (R01) or Eyes Closed (R02) recordings, since those runs are never segmented in the first place &mdash; each is a single continuous file per subject. With 109 subjects, these were originally sorted into their own folders by hand, which was tedious but manageable at that scale. It wasn't until the segmented files ballooned into the thousands that a script became necessary for organizing those.</p><p>The full <code>EEG_Classification</code> folder &mdash; with the segmented task classes from this script plus the hand-sorted Eyes Open and Eyes Closed baselines &mdash; is available as a ready-made download: <a href="https://zenodo.org/records/20599237/files/EEG_CNN_Dataset_EDF.zip?download=1" target="_blank">EEG_CNN_Dataset_EDF.zip</a> on Zenodo, linked on the Datasets page.</p></div></div>
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004.</span>
+</footer>
+</body>
+</html>
