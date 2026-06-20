@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folder Segmentation &mdash; NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html"><div class="hdr-dot"></div><span class="hdr-title">NeuroReedLab</span></a>
+  <nav><ul class="nav-links">
+    <li><a class="nav-link " href="../../index.html">Overview</a></li>
+    <li><a class="nav-link active" href="../../data-prep.html">Data Prep</a></li>
+    <li><a class="nav-link " href="../../methods.html">Methods</a></li>
+    <li><a class="nav-link " href="../../datasets.html">Datasets</a></li>
+    <li><a class="nav-link " href="../../cnn.html">CNN</a></li>
+    <li><a class="nav-link " href="../../conclusion.html">Conclusion</a></li>
+  </ul></nav>
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+<div class="script-page"><div class="script-nav"><a class="script-nav-back" href="../../data-prep.html">&larr; Back</a><div class="script-nav-pager"><a class="pager-btn" href="01_segment_single_file.html">&larr; Single File</a><a class="pager-btn" href="03_segment_all_subjects.html">All Subjects &rarr;</a></div></div><div class="script-header"><div class="script-number">Script 02 &mdash; Data Prep</div><h1 class="script-title">Folder-Level Segmentation</h1><p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">Wraps the single-file logic in a loop over all EDFs in one directory.</p><div class="tags"><span class="tag tg-m">MATLAB</span><span class="tag tg-m">EEGLAB</span></div><div class="file-links"><a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/01_data_prep/matlab/02_segment_one_folder.m" target="_blank"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>02_segment_one_folder.m</a></div></div><div class="script-section"><div class="script-section-label">What Changed</div><p>The core segmentation logic is identical to script 01. The only addition is a <code>dir()</code> call to find all <code>.edf</code> files in the current directory, and a loop that processes each one. For each file a subfolder named <em>"Segment of [filename]"</em> is created, keeping each file's segments together and easy to trace.</p></div><div class="script-section"><div class="script-section-label">Setup &amp; Usage</div><p>Same two dependencies as script 01, plus one extra step for working folder-by-folder.</p><p><strong>1. BioSig toolbox.</strong> Download <code>Biosig3.8.4.zip</code> from the <a href="https://github.com/Reed02/NeuroReedLab/tree/main" target="_blank">NeuroReedLab</a> repo, under <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">NNSA_Project</a> &rarr; <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project/01_data_prep" target="_blank">01_data_prep</a> &rarr; <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project/01_data_prep/matlab" target="_blank">matlab</a>. Unzip it and run <code>biosig_installer.m</code> in MATLAB.</p><p><strong>2. The dataset.</strong> Download the full EEG Motor Movement/Imagery Dataset from its <a href="https://doi.org/10.18112/openneuro.ds004362.v1.0.0" target="_blank">OpenNeuro DOI</a> (linked on the Datasets page).</p><p><strong>3. Add the target subject folder to your path, and be inside it.</strong> This script works on whichever folder MATLAB is currently in, so you need to add the specific subject folder you want segmented &mdash; along with all of its subfiles &mdash; to your path, then navigate into that folder before running the script. For example, to segment subject S001, add the <code>S001</code> folder (and its subfiles) from the raw data folder to your path, <code>cd</code> into <code>S001</code> itself, and then run <code>02_segment_one_folder.m</code>. It will pick up all the EDFs in the current directory automatically.</p></div><div class="script-section"><div class="script-section-label">Core Code</div><div class="cb"><div class="cb-hdr"><span class="cb-fn">02_segment_one_folder.m</span><span class="cb-lg">MATLAB</span></div><div class="cb-body"><code><span class="cm">% Find all EDF files in the current directory</span>
+<span class="vr">edfFiles</span> = <span class="fn">dir</span>(<span class="fn">fullfile</span>(edfFolder, <span class="st">'*.edf'</span>));
+
+<span class="kw">for</span> f = <span class="nm">1</span>:<span class="fn">length</span>(edfFiles)
+    <span class="vr">edfFile</span> = edfFiles(f).name;
+    [~, nameNoExt, ~] = <span class="fn">fileparts</span>(edfFile);
+
+    <span class="cm">% Create output subfolder for this file</span>
+    <span class="vr">segFolder</span> = <span class="fn">fullfile</span>(edfFolder, [<span class="st">'Segment of '</span>, nameNoExt]);
+    <span class="kw">if</span> ~<span class="fn">exist</span>(segFolder, <span class="st">'dir'</span>), <span class="fn">mkdir</span>(segFolder); <span class="kw">end</span>
+
+    <span class="cm">% ... same segmentation logic as script 01 ...</span>
+<span class="kw">end</span></code></div></div></div><div class="script-section"><div class="script-section-label">Thought Process</div><p>Keeping each EDF's segments in its own named subfolder avoids the flat-folder problem: with hundreds of segments per run across 14 runs, a flat structure is unmanageable. The subfolder name includes the original filename so any segment can always be traced back to its source EDF.</p><p>This script was tested on one subject folder before proceeding to the full batch version. Once it produced the correct number of segments with sensible filenames, scaling was just a matter of changing the loop to cover all subjects.</p></div><div class="note"><div class="note-l">Intermediate step</div><p>This script processes one subject folder. Script 03 loops over all 109 subjects automatically. This version is still useful for debugging or reprocessing a single subject without running the full batch.</p></div></div>
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004.</span>
+</footer>
+</body>
+</html>
