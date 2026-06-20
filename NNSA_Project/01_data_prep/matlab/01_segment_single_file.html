@@ -26,17 +26,17 @@
 <span class="vr">fid</span> = <span class="fn">fopen</span>(filename, <span class="st">'r'</span>);
 <span class="vr">rawText</span> = <span class="fn">fread</span>(fid, <span class="st">'*char'</span>)';
 <span class="fn">fclose</span>(fid);
-
+ 
 <span class="cm">% Regex captures label (T0/T1/T2) and duration in seconds</span>
 <span class="vr">pattern</span> = <span class="st">'(T[0-2])\s*duration:\s*([0-9]+\.[0-9]+)'</span>;
 <span class="vr">matches</span> = <span class="fn">regexp</span>(rawText, pattern, <span class="st">'tokens'</span>);
-
+ 
 <span class="cm">% Convert durations to samples, handle last-segment overflow</span>
 <span class="vr">segment_lengths_samples</span> = <span class="fn">round</span>(durations * fs);
 <span class="kw">if</span> <span class="fn">sum</span>(segment_lengths_samples) > total_samples
     segment_lengths_samples(<span class="kw">end</span>) = total_samples - <span class="fn">sum</span>(segment_lengths_samples(<span class="nm">1</span>:<span class="kw">end</span>-<span class="nm">1</span>));
 <span class="kw">end</span>
-
+ 
 <span class="cm">% Slice and save each segment as .set</span>
 <span class="vr">EEG_seg</span>.data = EEG.data(:, start_idx:end_idx);
 <span class="vr">EEG_seg</span>.pnts = <span class="fn">size</span>(EEG_seg.data, <span class="nm">2</span>);
