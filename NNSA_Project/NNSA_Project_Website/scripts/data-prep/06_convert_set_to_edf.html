@@ -22,20 +22,104 @@
     Reed02 / NeuroReedLab
   </a>
 </header>
-<div class="script-page"><div class="script-nav"><a class="script-nav-back" href="../../data-prep.html">&larr; Back</a><div class="script-nav-pager"><a class="pager-btn" href="05_sort_into_class_folders.html">&larr; Sort to Classes</a><a class="pager-btn" href="07_generate_scroll_plots.html">Scroll Plots &rarr;</a></div></div><div class="script-header"><div class="script-number">Script 06 &mdash; Data Prep</div><h1 class="script-title">Convert .set Files to EDF</h1><p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">Converts classified EEGLAB .set/.fdt files to .edf for Python MNE compatibility.</p><div class="tags"><span class="tag tg-m">MATLAB</span><span class="tag tg-t">Format Conversion</span></div><div class="file-links"><a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/01_data_prep/matlab/06_convert_set_to_edf.m" target="_blank"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>06_convert_set_to_edf.m</a></div></div><div class="script-section"><div class="script-section-label">Why Conversion Was Needed</div><p>EEGLAB's native <code>.set</code> format is ideal for MATLAB-based analysis but Python's MNE library works primarily with EDF. All Python analysis scripts use <code>mne.io.read_raw_edf()</code>. Rather than rewriting those scripts to handle <code>.set</code> files, converting the classification output to EDF was the cleaner and faster path.</p></div><div class="script-section"><div class="script-section-label">Setup &amp; Usage</div><p><strong>BioSig must be installed</strong> (run <code>biosig_installer.m</code> from the unzipped <code>Biosig3.8.4.zip</code>, available in the <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project/01_data_prep/matlab" target="_blank">matlab</a> folder) before running this script.</p><p>What gets converted depends entirely on which folder you point this script at. Running it on the <code>EEG_Classification</code> folder produced by script 05 will only convert the segmented motor task files &mdash; it has no Eyes Open or Eyes Closed baseline data to convert, since script 05 never sorted those in. To get EDF versions of <em>everything</em>, including baselines, run this script on the full <a href="https://zenodo.org/records/20599237/files/EEG_CNN_Dataset_EDF.zip?download=1" target="_blank">EEG_CNN_Dataset_EDF.zip</a> contents from Zenodo instead.</p><p>That said, this conversion has already been done. The complete set-format dataset &mdash; segments plus Eyes Open/Eyes Closed baselines &mdash; is available pre-packaged as <a href="https://zenodo.org/records/20599237/files/EEG_Segments_SetFormat.zip?download=1" target="_blank">EEG_Segments_SetFormat.zip</a> on Zenodo, so this script can typically be skipped.</p></div><div class="script-section"><div class="script-section-label">Channel Label Cleanup</div><div class="cb"><div class="cb-hdr"><span class="cb-fn">06_convert_set_to_edf.m</span><span class="cb-lg">MATLAB</span></div><div class="cb-body"><code><span class="cm">% EDF spec: channel labels must be ≤16 chars and have no whitespace</span>
+
+<div class="script-page">
+  <div class="script-nav">
+    <a class="script-nav-back" href="../../data-prep.html">&larr; Back</a>
+    <div class="script-nav-pager">
+      <a class="pager-btn" href="05_sort_into_class_folders.html">&larr; Sort to Classes</a>
+      <a class="pager-btn" href="07_generate_scroll_plots.html">Scroll Plots &rarr;</a>
+    </div>
+  </div>
+
+  <div class="script-header">
+    <div class="script-number">Script 06 &mdash; Data Prep</div>
+    <h1 class="script-title">Convert .set Files to EDF</h1>
+    <p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">
+      Converts classified EEGLAB .set/.fdt files to EDF for Python MNE compatibility.
+    </p>
+
+    <div class="tags">
+      <span class="tag tg-m">MATLAB</span>
+      <span class="tag tg-t">Format Conversion</span>
+    </div>
+
+    <div class="file-links">
+      <a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        06_convert_set_to_edf.m
+      </a>
+    </div>
+  </div>
+
+  <div class="script-section">
+    <div class="script-section-label">Why Conversion Was Needed</div>
+    <p>
+      EEGLAB's native <code>.set</code> format is ideal for MATLAB-based analysis, but Python's MNE library works primarily with EDF. All Python analysis scripts use <code>mne.io.read_raw_edf()</code>. Rather than rewriting those scripts to handle <code>.set</code> files, converting the classification output to EDF was the cleaner and faster path.
+    </p>
+  </div>
+
+  <div class="script-section">
+    <div class="script-section-label">Setup &amp; Usage</div>
+    <p>
+      <strong>BioSig must be installed</strong> (run <code>biosig_installer.m</code> from the unzipped <code>Biosig3.8.4.zip</code>, available in the <a href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project/01_data_prep/matlab" target="_blank">matlab</a> folder) before running this script.
+    </p>
+
+    <p>
+      What gets converted depends entirely on which folder you point this script at. Running it on the <code>EEG_Classification</code> folder produced by script 05 will only convert the segmented motor task files — it has no Eyes Open or Eyes Closed baseline data to convert, since script 05 never sorted those in. To get EDF versions of <em>everything</em>, including baselines, run this script on the full
+      <a href="https://zenodo.org/records/20599237/files/EEG_CNN_Dataset_EDF.zip?download=1" target="_blank">EEG CNN Dataset EDF.zip</a>
+      contents from Zenodo instead.
+    </p>
+
+    <p>
+      That said, this conversion has already been done. The complete set format dataset — segments plus Eyes Open and Eyes Closed baselines — is available pre packaged as
+      <a href="https://zenodo.org/records/20599237/files/EEG_Segments_SetFormat.zip?download=1" target="_blank">EEG Segments SetFormat.zip</a>
+      on Zenodo, so this script can typically be skipped.
+    </p>
+  </div>
+
+  <div class="script-section">
+    <div class="script-section-label">Channel Label Cleanup</div>
+
+    <div class="cb">
+      <div class="cb-hdr">
+        <span class="cb-fn">06_convert_set_to_edf.m</span>
+        <span class="cb-lg">MATLAB</span>
+      </div>
+
+      <div class="cb-body">
+<code><span class="cm">% EDF spec: channel labels must be 16 chars or less and have no whitespace</span>
 <span class="kw">for</span> ch = <span class="nm">1</span>:EEG.nbchan
     <span class="vr">lbl</span> = EEG.chanlocs(ch).labels;
-    <span class="vr">lbl</span> = <span class="fn">regexprep</span>(lbl, <span class="st">'\s+'</span>, <span class="st">''</span>);   <span class="cm">% strip whitespace</span>
+    <span class="vr">lbl</span> = <span class="fn">regexprep</span>(lbl, <span class="st">'\s+'</span>, <span class="st">''</span>);   <span class="cm">% remove whitespace</span>
     <span class="vr">lbl</span> = lbl(<span class="nm">1</span>:<span class="fn">min</span>(<span class="nm">16</span>, <span class="kw">end</span>));      <span class="cm">% truncate to 16 chars</span>
     EEG.chanlocs(ch).labels = lbl;
 <span class="kw">end</span>
+
 EEG = <span class="fn">eeg_checkset</span>(EEG);
 
-<span class="cm">% Write EDF with 1-second record blocks</span>
-<span class="fn">pop_writeeeg</span>(EEG, outputEDF, <span class="st">'TYPE'</span>, <span class="st">'EDF'</span>, <span class="st">'recordlength'</span>, <span class="nm">1</span>);</code></div></div></div><div class="script-section"><div class="script-section-label">Thought Process</div><p>The EDF format has a strict 16-character limit on channel labels. Some EEGLAB channel names include spaces or exceed 16 characters, which causes <code>pop_writeeeg</code> to either error or silently corrupt the label. The preprocessing step strips whitespace with a regex and truncates to 16 characters before the write.</p><p>The <code>recordlength</code> of 1 second is the standard EDF record length. It is compatible with all EDF readers including MNE. The output mirrors the <code>EEG_Classification/</code> folder structure: 9 subfolders with identical class names. The <strong>EEG_Classification_EDFFormat</strong> Zenodo dataset is the direct output.</p></div></div>
+<span class="cm">% Write EDF with 1 second record blocks</span>
+<span class="fn">pop_writeeeg</span>(EEG, outputEDF, <span class="st">'TYPE'</span>, <span class="st">'EDF'</span>, <span class="st">'recordlength'</span>, <span class="nm">1</span>);</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="script-section">
+    <div class="script-section-label">Thought Process</div>
+    <p>
+      The EDF format has a strict 16 character limit on channel labels. Some EEGLAB channel names include spaces or exceed 16 characters, which causes <code>pop_writeeeg</code> to either error or silently corrupt the label. The preprocessing step strips whitespace with a regex and truncates to 16 characters before writing.
+    </p>
+
+    <p>
+      The <code>recordlength</code> of 1 second is the standard EDF record length and is compatible with all EDF readers including MNE. The output mirrors the <code>EEG_Classification</code> folder structure: 9 subfolders with identical class names. The <strong>EEG_Classification_EDFFormat</strong> Zenodo dataset is the direct output.
+    </p>
+  </div>
+
+</div>
+
 <footer class="site-footer">
   <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
-  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034&ndash;1043, 2004.</span>
+  <span class="ft-r">Schalk et al. &ldquo;BCI2000.&rdquo; <em>IEEE Trans. Biomed. Eng.</em> 51(6):1034–1043, 2004.</span>
 </footer>
 </body>
 </html>
