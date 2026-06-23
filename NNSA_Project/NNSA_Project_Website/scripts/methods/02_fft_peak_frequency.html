@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FFT Peak Frequency NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html"><div class="hdr-dot"></div><span class="hdr-title">NeuroReedLab</span></a>
+  <nav><ul class="nav-links">
+    <li><a class="nav-link " href="../../index.html">Overview</a></li>
+    <li><a class="nav-link " href="../../data-prep.html">Data Prep</a></li>
+    <li><a class="nav-link active" href="../../methods.html">Methods</a></li>
+    <li><a class="nav-link " href="../../datasets.html">Datasets</a></li>
+    <li><a class="nav-link " href="../../cnn.html">CNN</a></li>
+    <li><a class="nav-link " href="../../conclusion.html">Conclusion</a></li>
+  </ul></nav>
+
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+
+<div class="script-page">
+
+<div class="script-nav">
+  <a class="script-nav-back" href="../../methods.html">&larr; Back</a>
+  <div class="script-nav-pager">
+    <a class="pager-btn" href="01_time_domain_exploration.html">&larr; Time Domain</a>
+    <a class="pager-btn" href="03_normalized_amplitude_spectra.html">Normalized Spectra &rarr;</a>
+  </div>
+</div>
+
+<div class="script-header">
+  <div class="script-number">Script 02 Methods</div>
+  <h1 class="script-title">FFT and Peak Frequency Per Channel</h1>
+
+  <p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">
+    High pass at 8 Hz then compute FFT per channel. Track the global peak frequency across all 64 channels.
+  </p>
+
+  <div class="tags">
+    <span class="tag tg-m">MATLAB</span>
+    <span class="tag tg-v">FFT</span>
+  </div>
+
+  <div class="file-links">
+    <a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/02_methods/matlab/02_fft_peak_frequency.m" target="_blank">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      02 fft peak frequency.m
+    </a>
+  </div>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">Goal</div>
+  <p>
+    After seeing the time domain signal, the next question is where the energy lives in frequency. Motor imagery has known frequency domain signatures such as event related desynchronization in the alpha and beta bands contralateral to the imagined movement. This script computes the amplitude spectrum for each channel and identifies the peak frequency across all channels, giving the dominant oscillation during the task segment.
+  </p>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">Setup & Usage</div>
+  <p>
+    This script reads <code>.set</code> files, so the dataset to use here is
+    <a href="https://zenodo.org/records/20599237/files/EEG_Classification_SetFormat.zip?download=1" target="_blank">
+      EEG Classification SetFormat.zip
+    </a>
+    on Zenodo. This contains the organized segment classes, but not the Eyes Open or Eyes Closed baselines. Those were originally <code>.edf</code> recordings that never needed segmenting, so they were never converted into <code>.set</code> format alongside the segments.
+  </p>
+
+  <p>
+    To run this on a specific segment, add the full <code>EEG_Classification</code> folder and all its subfolders to your MATLAB path, then navigate into the class folder containing the file you want before running the script. For example, to look at <code>S001R03_segment_004_T1.set</code>, enter the <code>Task1_Real_Left_Fist</code> folder in MATLAB and run <code>02_fft_peak_frequency.m</code> from there.
+  </p>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">Core Code</div>
+
+  <div class="cb">
+    <div class="cb-hdr">
+      <span class="cb-fn">02 fft peak frequency.m</span>
+      <span class="cb-lg">MATLAB</span>
+    </div>
+
+    <div class="cb-body">
+<code>
+<span class="cm">% High pass at 8 Hz suppress resting alpha and delta</span>
+[b,a] = <span class="fn">butter</span>(<span class="nm">4</span>, cutoff/(Fs/<span class="nm">2</span>), <span class="st">'high'</span>);
+
+<span class="kw">for</span> ch = <span class="nm">1</span>:numChannels
+    filteredData(ch,:) = <span class="fn">filtfilt</span>(b, a, <span class="fn">double</span>(data(ch,:)));
+<span class="kw">end</span>
+
+<span class="cm">% Single sided amplitude spectrum</span>
+<span class="vr">Y</span>  = <span class="fn">fft</span>(channelData);
+<span class="vr">P2</span> = <span class="fn">abs</span>(Y/N);
+<span class="vr">P1</span> = P2(<span class="nm">1</span>:<span class="fn">floor</span>(N/<span class="nm">2</span>)+<span class="nm">1</span>);
+P1(<span class="nm">2</span>:<span class="kw">end</span>-<span class="nm">1</span>) = <span class="nm">2</span>*P1(<span class="nm">2</span>:<span class="kw">end</span>-<span class="nm">1</span>);
+
+<span class="cm">% Track global peak across all channels</span>
+[chMaxAmp, idxMax] = <span class="fn">max</span>(P1);
+
+<span class="kw">if</span> chMaxAmp > globalMaxAmp
+    globalMaxAmp     = chMaxAmp;
+    globalMaxFreq    = f(idxMax);
+    globalMaxChannel = ch;
+<span class="kw">end</span>
+</code>
+    </div>
+  </div>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">Thought Process</div>
+
+  <p>
+    The 8 Hz high pass cutoff was chosen to suppress the resting alpha band which dominates baseline recordings. For motor task segments, activity above 8 Hz, particularly beta from 13 to 30 Hz and lower gamma, is more diagnostic. Removing sub 8 Hz components prevents strong resting alpha from dominating spectral peaks.
+  </p>
+
+  <p>
+    Doubling the non DC amplitude terms gives the correct single sided spectrum. Without this, amplitudes are reduced because energy is split between positive and negative frequency components. The resulting values are in the original signal units microvolts.
+  </p>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">What the peak tracking showed</div>
+
+  <p>
+    Peak frequencies clustered around 15 to 25 Hz in the beta band for task segments, consistent with known motor cortex signatures. Rest segments showed peaks closer to 8 to 12 Hz in the alpha band. This was an early positive sign that the data contained class discriminating frequency information.
+  </p>
+</div>
+
+<div class="script-section">
+  <div class="script-section-label">Outputs</div>
+
+  <figure class="script-figure">
+    <img src="../../images/methods/02_fft_peak_frequency/02_fft_spectrum_all_channels_real_left_fist.png" alt="FFT spectrum all channels" style="width:100%;border-radius:6px;margin-bottom:0.5rem;">
+    <figcaption style="color:var(--mid);font-size:0.85rem;margin-bottom:1.5rem">
+      Normalized amplitude spectrum for all 64 channels filtered above 8 Hz. Real Left Fist trial showing dominant activity in the 10 to 20 Hz band across motor channels.
+    </figcaption>
+  </figure>
+
+  <figure class="script-figure">
+    <img src="../../images/methods/02_fft_peak_frequency/02_fft_terminal_peak_ch25_10hz.png" alt="Peak frequency terminal output" style="width:100%;border-radius:6px;margin-bottom:0.5rem;">
+    <figcaption style="color:var(--mid);font-size:0.85rem;margin-bottom:1.5rem">
+      Global max amplitude of 8.49 found at 10.73 Hz on channel 25 C3 the contralateral motor cortex channel expected to be most active during right hand tasks.
+    </figcaption>
+  </figure>
+
+</div>
+</div>
+
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery · NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. "BCI2000." IEEE Trans. Biomed. Eng. 51(6):1034 to 1043, 2004.</span>
+</footer>
+
+</body>
+</html>

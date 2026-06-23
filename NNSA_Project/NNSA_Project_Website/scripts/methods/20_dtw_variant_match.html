@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTW Variant Match — NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html">
+    <div class="hdr-dot"></div>
+    <span class="hdr-title">NeuroReedLab</span>
+  </a>
+
+  <nav>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../../index.html">Overview</a></li>
+      <li><a class="nav-link" href="../../data-prep.html">Data Prep</a></li>
+      <li><a class="nav-link active" href="../../methods.html">Methods</a></li>
+      <li><a class="nav-link" href="../../datasets.html">Datasets</a></li>
+      <li><a class="nav-link" href="../../cnn.html">CNN</a></li>
+      <li><a class="nav-link" href="../../conclusion.html">Conclusion</a></li>
+    </ul>
+  </nav>
+
+  <a class="gh-badge"
+     href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project"
+     target="_blank">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+    </svg>
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+
+<div class="script-page">
+
+<div class="script-nav">
+  <a class="script-nav-back" href="../../methods.html">&larr; Back</a>
+  <div class="script-nav-pager">
+    <a class="pager-btn" href="19_dtw_pattern_match.html">&larr; DTW Match</a>
+  </div>
+</div>
+
+<div class="script-header">
+  <div class="script-number">Script 20 — Methods</div>
+  <h1 class="script-title">DTW Variant Match</h1>
+  <p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">
+    Extends cross-correlation matching with Dynamic Time Warping and signal-variant generation to improve robustness to temporal variability in EEG.
+  </p>
+
+  <div class="tags">
+    <span class="tag tg-p">Python</span>
+    <span class="tag tg-p">MNE</span>
+    <span class="tag tg-t">DTW</span>
+    <span class="tag tg-t">Pattern Matching</span>
+  </div>
+
+  <div class="file-links">
+    <a class="gh-file"
+       href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/02_methods/python/20_dtw_variant_match.py"
+       target="_blank">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      20_dtw_variant_match.py
+    </a>
+  </div>
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Why This Exists</div>
+<p>
+Cross-correlation assumes signals are aligned in time, which is often unrealistic for EEG. Even when two recordings reflect the same cognitive state, neural responses can shift in latency due to reaction time differences, cortical variability, or preprocessing effects.
+</p>
+
+<p>
+This script addresses that limitation by introducing Dynamic Time Warping (DTW), which allows elastic alignment of two signals before computing similarity. It also improves robustness further by comparing each signal against multiple realistic synthetic variants rather than a single reference trace.
+</p>
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Setup & Usage</div>
+<p>
+This implementation uses Python with MNE and the <code>fastdtw</code> library for efficient approximate DTW computation. It is designed for the Eyes Open baseline subset of the EEG dataset from Zenodo and operates on EDF files only.
+</p>
+
+<p>
+Install dependency:
+<code>pip install fastdtw</code>
+</p>
+
+<p>
+As with previous scripts, file paths are manually specified and must be updated to match the local dataset directory.
+</p>
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Core Code</div>
+
+<div class="cb">
+<div class="cb-hdr">
+<span class="cb-fn">20_dtw_variant_match.py</span>
+<span class="cb-lg">Python</span>
+</div>
+
+<div class="cb-body">
+<code>
+def compute_similarity(sig1, sig2, method="dtw"):<br>
+&nbsp;&nbsp;distance, _ = fastdtw(sig1, sig2, dist=scalar_dist)<br>
+&nbsp;&nbsp;return 1 / (1 + distance)<br><br>
+
+def generate_variants(sig, num_variants=10, peak_shift_std=20, ...):<br>
+&nbsp;&nbsp;peaks, _ = find_peaks(sig, distance=20)<br>
+&nbsp;&nbsp;variants = []<br><br>
+
+&nbsp;&nbsp;for _ in range(num_variants):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;variant = np.copy(sig)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for peak in peaks:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shift = int(np.random.normal(0, peak_shift_std))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height_factor = 1 + np.random.normal(0, peak_height_std)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width_factor = max(1 + np.random.normal(0, peak_width_std), 0.1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;variant = deform_peak(variant, peak, shift, height_factor, width_factor)<br><br>
+
+&nbsp;&nbsp;return variants
+</code>
+</div>
+</div>
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Interpretation</div>
+<p>
+DTW improves over cross-correlation by aligning signals non-linearly in time before measuring distance. This makes it robust to latency shifts, variable reaction times, and temporal stretching—common properties of EEG signals across subjects.
+</p>
+
+<p>
+The variant generator further increases robustness by modeling realistic EEG variability: each signal is transformed into multiple plausible versions with perturbed peak timing, amplitude, and width. A match is accepted if any variant yields a sufficiently small DTW distance.
+</p>
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Trade-off</div>
+<p>
+This approach improves sensitivity by allowing flexible alignment across physiological variability, but it also increases the risk of false positives by expanding the acceptance space. In preprocessing pipelines, this is often an acceptable trade-off since removing valid EEG data is more damaging than retaining a small number of borderline samples.
+</p>
+</div>
+
+</div>
+
+</body>
+</html>

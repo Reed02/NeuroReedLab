@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artifact Detection &mdash; NeuroReedLab</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <a class="hdr-left" href="../../index.html">
+    <div class="hdr-dot"></div>
+    <span class="hdr-title">NeuroReedLab</span>
+  </a>
+
+  <nav>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="../../index.html">Overview</a></li>
+      <li><a class="nav-link" href="../../data-prep.html">Data Prep</a></li>
+      <li><a class="nav-link active" href="../../methods.html">Methods</a></li>
+      <li><a class="nav-link" href="../../datasets.html">Datasets</a></li>
+      <li><a class="nav-link" href="../../cnn.html">CNN</a></li>
+      <li><a class="nav-link" href="../../conclusion.html">Conclusion</a></li>
+    </ul>
+  </nav>
+
+  <a class="gh-badge" href="https://github.com/Reed02/NeuroReedLab/tree/main/NNSA_Project" target="_blank">
+    Reed02 / NeuroReedLab
+  </a>
+</header>
+
+<div class="script-page">
+
+<div class="script-nav">
+  <a class="script-nav-back" href="../../methods.html">&larr; Back</a>
+  <div class="script-nav-pager">
+    <a class="pager-btn" href="08_extract_avg_fft_features.html">&larr; Avg FFT</a>
+    <a class="pager-btn" href="09b_raw_data_plotting.html">Raw Plot &rarr;</a>
+  </div>
+</div>
+
+<div class="script-header">
+  <div class="script-number">Script 09 &mdash; Methods</div>
+  <h1 class="script-title">Artifact Detection</h1>
+
+  <p style="color:var(--mid);font-size:1rem;margin-bottom:1rem">
+    Automated quality control for EEG baseline recordings using statistical deviation from smoothed signal envelopes.
+  </p>
+
+  <div class="tags">
+    <span class="tag tg-p">Python</span>
+    <span class="tag tg-v">MNE</span>
+    <span class="tag tg-v">Signal Quality</span>
+  </div>
+
+  <div class="file-links">
+    <a class="gh-file" href="https://github.com/Reed02/NeuroReedLab/blob/main/NNSA_Project/02_methods/python/09_artifact_detection.py" target="_blank">
+      09_artifact_detection.py
+    </a>
+  </div>
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Why Python</div>
+
+<p>
+This stage transitions into Python using MNE, which provides stronger tools for EEG file handling and signal processing at scale.
+It enables automated preprocessing across large EDF datasets with consistent filtering and statistical analysis.
+</p>
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Setup & Usage</div>
+
+<p>
+This script processes <code>.edf</code> recordings from the EEG CNN dataset on Zenodo.
+No MATLAB dependencies are required. The only requirement is updating the local file path to point to the dataset directory.
+</p>
+
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Core Code</div>
+
+<div class="cb">
+<div class="cb-hdr">
+<span class="cb-fn">09_artifact_detection.py</span>
+<span class="cb-lg">Python</span>
+</div>
+
+<div class="cb-body">
+<code>
+raw = mne.io.read_raw_edf(f, preload=True, verbose=False)
+raw.filter(1., 40., fir_design='firwin', verbose=False)
+
+data, times = raw[ch]
+data = data[0] * 1e6
+
+smoothed = gaussian_filter1d(data, sigma=10)
+
+norm = (smoothed - np.mean(smoothed)) / np.std(smoothed)
+
+ma = np.convolve(norm,
+                 np.ones(SMOOTH_WINDOW)/SMOOTH_WINDOW,
+                 'same')
+
+artifact_mask = np.abs(ma) > THRESHOLD_FACTOR * np.std(ma)
+
+num_artifacts = np.sum(np.diff(artifact_mask.astype(int)) == 1)
+</code>
+</div>
+</div>
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Method</div>
+
+<p>
+The pipeline combines Gaussian smoothing with a large moving-average envelope to isolate slow baseline behavior.
+Artifacts are defined as excursions exceeding three standard deviations from this envelope, capturing abrupt non-neural events such as movement or electrode noise.
+</p>
+
+</div>
+
+<div class="script-section">
+<div class="script-section-label">Outcome</div>
+
+<p>
+Baseline recordings show variable artifact rates across subjects, but no consistent difference between eyes-open and eyes-closed conditions.
+This suggests that noise is primarily subject-specific rather than condition-dependent.
+</p>
+
+</div>
+
+</div>
+
+<footer class="site-footer">
+  <span class="ft-l">EEG Motor Imagery &middot; NeuroReedLab</span>
+  <span class="ft-r">Schalk et al. “BCI2000.” IEEE Trans. Biomed. Eng. 51(6):1034–1043, 2004.</span>
+</footer>
+
+</body>
+</html>
