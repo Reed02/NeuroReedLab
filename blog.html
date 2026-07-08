@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog | NeuroReedLab</title>
+  <link rel="stylesheet" href="css/blog.css">
+</head>
+<body>
+
+  <!-- NAVBAR (injected by nav.js) -->
+  <div id="navbar"></div>
+
+  <main>
+    <div class="page-wrap">
+      <section class="hero">
+        <p class="hero-eyebrow">NeuroReedLab</p>
+        <h1 class="hero-title">The <span class="accent">Blog</span></h1>
+        <p class="hero-desc">
+          Notes, write-ups, and running logs from ongoing research — hardware first
+          impressions, experiment design decisions, and things learned along the way.
+        </p>
+      </section>
+    </div>
+
+    <div class="page-wrap">
+      <section class="section" style="padding-top: 0;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 0.5rem;">
+          <p class="section-label" style="margin-bottom:0;">All posts</p>
+          <span id="blog-count" class="mono" style="color: var(--text-3); font-size: 0.8rem;">Loading…</span>
+        </div>
+        <!-- Cards injected by blog.js -->
+        <div class="blog-grid" id="blog-grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER (injected by nav.js) -->
+  <div id="footer"></div>
+
+  <script src="js/nav.js"></script>
+  <script src="js/blog.js"></script>
+</body>
+</html>
