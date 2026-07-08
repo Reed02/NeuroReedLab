@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Title | NeuroReedLab Blog</title>
+  <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+
+  <!-- This tells nav.js the page is one folder deep, so nav
+       links point back to the site root correctly. Keep this
+       line for every page inside /blog/. -->
+  <script>window.SITE_BASE = "../";</script>
+  <div id="navbar"></div>
+
+  <main>
+    <div class="page-wrap">
+      <section class="page-hero">
+        <p class="breadcrumb"><a href="../blog.html">← Back to Blog</a></p>
+        <h1>Post Title Goes Here</h1>
+        <p>
+          One or two sentence summary / subtitle for the post. This shows
+          under the title on the post page (it does not need to match the
+          "desc" in data/blog.json exactly).
+        </p>
+      </section>
+    </div>
+
+    <div class="page-wrap">
+      <section class="section">
+        <p class="section-label">Overview</p>
+        <h2 style="margin-bottom:1rem;">A section heading</h2>
+        <p style="max-width:720px;">
+          Write your post content here. Paragraphs, headings (h2/h3),
+          and the components below are all available to use.
+        </p>
+      </section>
+    </div>
+
+    <!-- Example: a row of highlight cards -->
+    <div class="page-wrap">
+      <section class="section">
+        <p class="section-label">Highlights</p>
+        <h2 style="margin-bottom:1.5rem;">Key points</h2>
+        <div class="card-grid">
+          <div class="card teal-accent">
+            <h3 style="margin-bottom:0.5rem;">Point one</h3>
+            <p style="font-size:0.92rem;">Short supporting detail.</p>
+          </div>
+          <div class="card teal-accent">
+            <h3 style="margin-bottom:0.5rem;">Point two</h3>
+            <p style="font-size:0.92rem;">Short supporting detail.</p>
+          </div>
+          <div class="card teal-accent">
+            <h3 style="margin-bottom:0.5rem;">Point three</h3>
+            <p style="font-size:0.92rem;">Short supporting detail.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Example: an image with caption -->
+    <!--
+    <div class="page-wrap">
+      <section class="section">
+        <p class="section-label">Photo</p>
+        <div class="img-card">
+          <img src="images/your-image.png" alt="Description">
+          <p class="img-caption">Caption text goes here.</p>
+        </div>
+      </section>
+    </div>
+    -->
+
+    <!-- Example: a callout box -->
+    <div class="page-wrap">
+      <section class="section" style="border-bottom:none;">
+        <div class="callout">
+          <p>Use a callout like this for a takeaway, caveat, or link out to
+             a related resource.</p>
+        </div>
+        <p style="margin-top:2rem;">
+          <a href="../blog.html">← Back to all posts</a>
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="../js/nav.js"></script>
+</body>
+</html>
